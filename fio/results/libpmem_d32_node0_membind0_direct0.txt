@@ -1,0 +1,245 @@
+libpmem-randread: (g=0): rw=randread, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libpmem, iodepth=1
+...
+libpmem-randwrite: (g=1): rw=randwrite, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libpmem, iodepth=1
+...
+libpmem-seqread: (g=2): rw=read, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libpmem, iodepth=1
+...
+libpmem-seqwrite: (g=3): rw=write, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libpmem, iodepth=1
+...
+fio-3.6-5-gf31fe
+Starting 128 processes
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randread: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-randwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqread: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+libpmem-seqwrite: Laying out IO file (1 file / 128MiB)
+
+libpmem-randread: (groupid=0, jobs=32): err= 0: pid=26530: Mon Apr 23 13:15:17 2018
+   read: IOPS=8345k, BW=31.8GiB/s (34.2GB/s)(955GiB/30001msec)
+    clat (nsec): min=92, max=56018k, avg=3165.22, stdev=113824.04
+     lat (nsec): min=117, max=56018k, avg=3237.47, stdev=115053.12
+    clat percentiles (nsec):
+     |  1.00th=[  828],  5.00th=[ 1272], 10.00th=[ 1512], 20.00th=[ 1800],
+     | 30.00th=[ 2008], 40.00th=[ 2192], 50.00th=[ 2352], 60.00th=[ 2512],
+     | 70.00th=[ 2704], 80.00th=[ 2896], 90.00th=[ 3216], 95.00th=[ 3536],
+     | 99.00th=[ 4320], 99.50th=[ 4704], 99.90th=[ 5856], 99.95th=[14784],
+     | 99.99th=[17280]
+   bw (  KiB/s): min=301973, max=1423266, per=2.31%, avg=770684.86, stdev=217123.24, samples=1888
+   iops        : min=75493, max=355816, avg=192670.84, stdev=54280.82, samples=1888
+  lat (nsec)   : 100=0.01%, 250=0.08%, 500=0.22%, 750=0.41%, 1000=1.32%
+  lat (usec)   : 2=27.83%, 4=68.24%, 10=1.85%, 20=0.05%, 50=0.01%
+  lat (usec)   : 100=0.01%, 250=0.01%, 500=0.01%
+  lat (msec)   : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%, 50=0.01%
+  lat (msec)   : 100=0.01%
+  cpu          : usr=75.00%, sys=0.00%, ctx=17363, majf=0, minf=2381
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=250368163,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+libpmem-randwrite: (groupid=1, jobs=32): err= 0: pid=26563: Mon Apr 23 13:15:17 2018
+  write: IOPS=6582k, BW=25.1GiB/s (26.0GB/s)(753GiB/30001msec)
+    clat (nsec): min=270, max=48008k, avg=4276.49, stdev=130673.69
+     lat (nsec): min=295, max=48008k, avg=4335.98, stdev=131515.54
+    clat percentiles (nsec):
+     |  1.00th=[ 1032],  5.00th=[ 1576], 10.00th=[ 1848], 20.00th=[ 2224],
+     | 30.00th=[ 2512], 40.00th=[ 2768], 50.00th=[ 3056], 60.00th=[ 3344],
+     | 70.00th=[ 3664], 80.00th=[ 4080], 90.00th=[ 4704], 95.00th=[ 5408],
+     | 99.00th=[ 7008], 99.50th=[ 7712], 99.90th=[ 9280], 99.95th=[10048],
+     | 99.99th=[12992]
+   bw (  KiB/s): min=309444, max=1129243, per=2.45%, avg=644767.12, stdev=170689.40, samples=1888
+   iops        : min=77361, max=282310, avg=161191.39, stdev=42672.35, samples=1888
+  lat (nsec)   : 500=0.07%, 750=0.29%, 1000=0.55%
+  lat (usec)   : 2=12.71%, 4=64.92%, 10=21.41%, 20=0.04%, 50=0.01%
+  lat (usec)   : 100=0.01%, 250=0.01%, 500=0.01%
+  lat (msec)   : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%, 50=0.01%
+  cpu          : usr=75.00%, sys=0.00%, ctx=17720, majf=0, minf=2399
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,197456433,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+libpmem-seqread: (groupid=2, jobs=32): err= 0: pid=26595: Mon Apr 23 13:15:17 2018
+   read: IOPS=8654k, BW=33.0GiB/s (35.4GB/s)(990GiB/30002msec)
+    clat (nsec): min=315, max=52019k, avg=3067.14, stdev=112529.55
+     lat (nsec): min=341, max=52019k, avg=3138.85, stdev=113796.48
+    clat percentiles (nsec):
+     |  1.00th=[  884],  5.00th=[ 1240], 10.00th=[ 1464], 20.00th=[ 1736],
+     | 30.00th=[ 1928], 40.00th=[ 2096], 50.00th=[ 2256], 60.00th=[ 2416],
+     | 70.00th=[ 2608], 80.00th=[ 2800], 90.00th=[ 3152], 95.00th=[ 3472],
+     | 99.00th=[ 4256], 99.50th=[ 4640], 99.90th=[ 5728], 99.95th=[14784],
+     | 99.99th=[17280]
+   bw (  KiB/s): min=257165, max=1452052, per=2.57%, avg=887976.06, stdev=254366.14, samples=1888
+   iops        : min=64291, max=363013, avg=221993.65, stdev=63591.53, samples=1888
+  lat (nsec)   : 500=0.02%, 750=0.38%, 1000=1.46%
+  lat (usec)   : 2=32.32%, 4=64.17%, 10=1.59%, 20=0.05%, 50=0.01%
+  lat (usec)   : 100=0.01%, 250=0.01%, 500=0.01%, 1000=0.01%
+  lat (msec)   : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%, 50=0.01%
+  lat (msec)   : 100=0.01%
+  cpu          : usr=75.00%, sys=0.00%, ctx=16907, majf=0, minf=2389
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=259629453,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+libpmem-seqwrite: (groupid=3, jobs=32): err= 0: pid=26627: Mon Apr 23 13:15:17 2018
+  write: IOPS=6568k, BW=25.1GiB/s (26.9GB/s)(752GiB/30002msec)
+    clat (nsec): min=309, max=56004k, avg=4321.20, stdev=130999.27
+     lat (nsec): min=339, max=56004k, avg=4380.46, stdev=131840.20
+    clat percentiles (nsec):
+     |  1.00th=[ 1112],  5.00th=[ 1624], 10.00th=[ 1880], 20.00th=[ 2256],
+     | 30.00th=[ 2544], 40.00th=[ 2800], 50.00th=[ 3056], 60.00th=[ 3344],
+     | 70.00th=[ 3696], 80.00th=[ 4128], 90.00th=[ 4768], 95.00th=[ 5472],
+     | 99.00th=[ 7136], 99.50th=[ 7776], 99.90th=[ 9408], 99.95th=[10176],
+     | 99.99th=[14784]
+   bw (  KiB/s): min=180848, max=1112432, per=3.12%, avg=820626.93, stdev=227705.91, samples=1893
+   iops        : min=45212, max=278108, avg=205156.71, stdev=56926.48, samples=1893
+  lat (nsec)   : 500=0.02%, 750=0.21%, 1000=0.46%
+  lat (usec)   : 2=12.10%, 4=65.08%, 10=22.06%, 20=0.05%, 50=0.01%
+  lat (usec)   : 100=0.01%, 250=0.01%, 1000=0.01%
+  lat (msec)   : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%, 50=0.01%
+  lat (msec)   : 100=0.01%
+  cpu          : usr=74.97%, sys=0.00%, ctx=20010, majf=0, minf=2447
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=0,197046192,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=31.8GiB/s (34.2GB/s), 31.8GiB/s-31.8GiB/s (34.2GB/s-34.2GB/s), io=955GiB (1026GB), run=30001-30001msec
+
+Run status group 1 (all jobs):
+  WRITE: bw=25.1GiB/s (26.0GB/s), 25.1GiB/s-25.1GiB/s (26.0GB/s-26.0GB/s), io=753GiB (809GB), run=30001-30001msec
+
+Run status group 2 (all jobs):
+   READ: bw=33.0GiB/s (35.4GB/s), 33.0GiB/s-33.0GiB/s (35.4GB/s-35.4GB/s), io=990GiB (1063GB), run=30002-30002msec
+
+Run status group 3 (all jobs):
+  WRITE: bw=25.1GiB/s (26.9GB/s), 25.1GiB/s-25.1GiB/s (26.9GB/s-26.9GB/s), io=752GiB (807GB), run=30002-30002msec
+
+Disk stats (read/write):
+  pmem0: ios=0/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%

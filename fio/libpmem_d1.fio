@@ -1,0 +1,98 @@
+[global]
+bs=4k
+#size=8g
+size=128m
+#size=1g
+runtime=30
+
+ioengine=libpmem
+norandommap
+time_based=1
+group_reporting
+invalidate=1
+#disable_lat=1
+#disable_slat=1
+#disable_clat=1
+#clat_percentiles=0
+
+#iodepth=32
+#iodepth_batch=32
+#thread=32
+#numjobs=32
+numjobs=1
+
+#
+# In case of 'scramble_buffers=1', the source buffer
+# is rewritten with a random value every write operations.
+#
+# But when 'scramble_buffers=0' is set, the source buffer isn't
+# rewritten. So it will be likely that the source buffer is in CPU
+# cache and it seems to be high performance.
+#
+scramble_buffers=0
+
+#
+# direct=0:
+#   Using pmem_memcpy_nodrain() for write operation
+#
+# direct=1:
+#   Using pmem_memcpy_persist() for write operation
+#
+#direct=1
+direct=0
+
+#
+# Setting for fio process's CPU Node
+# The parameter is the node number, list of node, or 'all'
+# Use numactl --hardware to show current NUMA nodes in your system
+#
+numa_cpu_nodes=0
+#numa_cpu_nodes=all
+
+# NUMA mem policy: 'default', 'prefer', 'bind', 'interleave', or 'local'
+# Examples:
+# numa_mem_policy=default
+# numa_mem_policy=local
+# numa_mem_policy=bind:0
+# numa_mem_policy=prefer:0,1,2,3
+# numa_mem_policy=prefer:0-3
+# numa_mem_policy=prefer:all
+# interleave is similar with prefer
+#numa_mem_policy=interleave:all
+#numa_mem_policy=interleave:0
+numa_mem_policy=bind:0
+
+# cpus_allowed_policy: 'shared' (default), 'split'
+# split means that each job will get a unique CPU from the CPU set
+#
+cpus_allowed_policy=split
+#cpus_allowed_policy=shared
+
+#
+# The pmemblk engine does IO to files in a DAX-mounted filesystem.
+# The filesystem should be created on an NVDIMM (e.g /dev/pmem0)
+# and then mounted with the '-o dax' option.  Note that the engine
+# accesses the underlying NVDIMM directly, bypassing the kernel block
+# layer, so the usual filesystem/disk performance monitoring tools such
+# as iostat will not provide useful data.
+#
+directory=/mnt/pmem1
+
+[libpmem-randread]
+rw=randread
+stonewall
+
+[libpmem-randwrite]
+rw=randwrite
+stonewall
+
+[libpmem-seqread]
+rw=read
+stonewall
+
+[libpmem-seqwrite]
+rw=write
+stonewall
+
+
+

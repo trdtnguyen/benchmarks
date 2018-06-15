@@ -1,0 +1,32 @@
+libpmem-seqread: (g=0): rw=read, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libpmem, iodepth=1
+...
+fio-3.6-5-gf31fe
+Starting 32 processes
+
+libpmem-seqread: (groupid=0, jobs=32): err= 0: pid=19317: Thu Apr 19 10:36:45 2018
+   read: IOPS=9965k, BW=38.0GiB/s (40.8GB/s)(1140GiB/30002msec)
+    clat (nsec): min=126, max=774196, avg=2818.91, stdev=1482.62
+     lat (nsec): min=163, max=774229, avg=2861.35, stdev=1487.27
+    clat percentiles (nsec):
+     |  1.00th=[  215],  5.00th=[  274], 10.00th=[  660], 20.00th=[ 1816],
+     | 30.00th=[ 2192], 40.00th=[ 2512], 50.00th=[ 2800], 60.00th=[ 3056],
+     | 70.00th=[ 3376], 80.00th=[ 3792], 90.00th=[ 4512], 95.00th=[ 5216],
+     | 99.00th=[ 6944], 99.50th=[ 7840], 99.90th=[11840], 99.95th=[13504],
+     | 99.99th=[16512]
+   bw (  MiB/s): min=  296, max= 4414, per=3.12%, avg=1216.36, stdev=609.36, samples=1890
+   iops        : min=75872, max=1130086, avg=311388.03, stdev=155995.04, samples=1890
+  lat (nsec)   : 250=3.42%, 500=5.20%, 750=2.02%, 1000=1.25%
+  lat (usec)   : 2=12.30%, 4=59.50%, 10=16.13%, 20=0.18%, 50=0.01%
+  lat (usec)   : 100=0.01%, 500=0.01%, 750=0.01%, 1000=0.01%
+  cpu          : usr=99.84%, sys=0.16%, ctx=492, majf=0, minf=398388
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=298970117,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=38.0GiB/s (40.8GB/s), 38.0GiB/s-38.0GiB/s (40.8GB/s-40.8GB/s), io=1140GiB (1225GB), run=30002-30002msec
+
+Disk stats (read/write):
+  pmem0: ios=0/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%
