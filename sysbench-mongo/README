@@ -1,0 +1,9 @@
+How to run sysbench for MongoDB
+
+Check the github https://github.com/tmcallaghan/sysbench-mongodb
+
+Make the benchmark directory i.e. /ssd2/benchmark/sysbench-mongodb
+Copy necessary sh files from previous benchmark
+
+copy config.bash run.simple.bash src to your directory
+

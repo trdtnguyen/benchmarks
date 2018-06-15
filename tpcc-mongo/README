@@ -1,0 +1,22 @@
+HOW TO USE SCRIPT FILES
+Author: Trong-Dat Nguyen
+==========================================
+
+const.sh is the global file included by other sh files. It contains consts for all scripts
+
+To use a copy database from another location and execute the database:
+./run_single.sh
+
+
+To start the mongodb 
+./start_server.sh <cache_size>
+cache_size: 0 ~ max_DRAM_size 
+
+To stop the server
+./stop_server.sh
+
+To get the statistics information for a running mongodb server:
+./get_coll_stats.sh <out_dir>
+You can specify any desired output dir as out_dir
+
+
