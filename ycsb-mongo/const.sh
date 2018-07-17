@@ -5,7 +5,7 @@
 METHOD=OP6_wla2_23M_32k_6h_nors
 
 #BENCHMARK_HOME=/ssd2/benchmark/linkbench
-BENCHMARK_HOME=/ssd2/benchmark/ycsb
+BENCHMARK_HOME=/home/vldb/benchmarks/ycsb-mongo
 
 #NVME SSD specify variables
 #number of streams should open: ORI: 0;OP6 (boundary): 7,  OP8 (DSM-3): 10; OP11 (DSM-5): 14; OP10 (file-based): 13
@@ -20,95 +20,30 @@ NUM_OPEN_STREAM=0
 IS_RESET=0
 IS_NVME_SSD=0
 
-#IS_NVME_SSD=1
-NVME_TOOLS=/ssd2/benchmark/linkbench/nvme-user
-NVME_DEV_ROOT=/dev/nvme0n1
-NVME_DEV=/dev/nvme0n1p1
-#MOUNT_POINT='nvme1' #for trace_disk_util.sh
 MOUNT_POINT='ssd1' #for trace_disk_util.sh
-NOSA_NAME=nosa.txt
-STREAM_NAME=stream.txt
 
-YCSB_HOME=/home/vldb/ycsb-0.5.0
-LINKBENCH_HOME=/home/vldb/linkbenchX
-LINKBENCH_CONFIG_FILE=${LINKBENCH_HOME}/config/LinkConfigMongoDBv2.properties
-#LINKBENCH_CONFIG_FILE=${BENCHMARK_HOME}/LinkConfigMongoDBv2.properties
-LB_DB_NAME=graph-linkbench
+YCSB_HOME=/home/vldb/YCSB
 
 ########################################
-YCSB_REC_COUNT=23000000
+YCSB_REC_COUNT=10000000
 YCSB_OP_COUNT=1000000000
 THREADS=40
 #THREADS=120
-#YCSB_WORKLOAD=workloada
-YCSB_WORKLOAD=workloada2
-YCSB_MAX_TIME=21600
+YCSB_WORKLOAD=workloada
+#YCSB_WORKLOAD=workloada2
+YCSB_MAX_TIME=300
 #YCSB_MAX_TIME=7200
 ########################################
 # Linkbench overwriten cofig key-value
 
-#maxid1 
-#10M rec ~ 10GB
-#LB_NUM_REC=4001
-LB_NUM_REC=80000001
-#LB_NUM_REC=100000001
-#LB_NUM_REC=250000001
-#LB_NUM_REC=400000001
-#LB_NUM_REC=80000001
-#LB_NUM_REC=40000001
-#number threads of loaders
-LB_LOAD_THREADS=20
-LB_RUN_THREADS=40
-#LB_LOAD_THREADS=40
-#LB_RUN_THREADS=10
-LB_NUM_REQUESTS=100000000000
-#debuglevel=INFO, DEBUG
-LB_DEBUG_LEVEL=INFO
-#>0 limits the average request rate to that number of requests per second per thread,
-#with the inter-request intervals governed by an exponential distribution
-LB_REQUEST_RATE=0 #default
-#LB_REQUEST_RATE=20000
-
-#LB_MAX_TIME=21600
-#LB_MAX_TIME=28800
-#LB_MAX_TIME=14400
-LB_MAX_TIME=7200
-#LB_MAX_TIME=3600
-#LB_MAX_TIME=600
 ############################################
-
-LB_CSVSTATS_LOAD_FILE=lb_csvstats_load.txt
-LB_CSVSTREAM_LOAD_FILE=lb_csvstream_load.txt
-LB_CSVSTATS_RUN_FILE=lb_csvstats_run.txt
-LB_CSVSTREAM_RUN_FILE=lb_csvstream_run.txt
-LB_IOPS_OUT=lb_ops
-LB_IOPS_TEM2_OUT=lb_ops_tem2
-LB_LOG_FILE=lb.log
-
-LB_ADD_LINK_FILE=add_link_tem.txt
-LB_GET_LINK_FILE=get_link_tem.txt
-LB_UPDATE_LINK_FILE=update_link_tem.txt
-LB_DELETE_LINK_FILE=delete_link_tem.txt
-LB_UPDATE_NODE_FILE=update_node_tem.txt
-
-
-LB_SERVER_STATUS=lb_serverStatus.txt
-LB_NODE_LOAD=load_node_stats.txt
-LB_LINK_LOAD=load_link_stats.txt
-LB_COUNT_LOAD=load_count_stats.txt
-
-
-LB_NODE_RUN=run_node_stats.txt
-LB_LINK_RUN=run_link_stats.txt
-LB_COUNT_RUN=run_count_stats.txt
 
 IOSTAT_FILE=iostat.txt
 TOP_FILE=top.txt
 LINUX_STAT_FILE=linux_stat.txt
 
-MONGO_DATA_PATH=/ssd1/data/db
-#MONGO_DATA_PATH=/nvme1/data/db
-MONGO_HOME=/home/vldb/mongodb-dev
+MONGO_DATA_PATH=/mnt/ssd1/data/db
+MONGO_HOME=/home/vldb/mongo-pmem
 MONGO_CONFIG_FILE=${BENCHMARK_HOME}/mongod.conf
 
 
@@ -119,23 +54,19 @@ WT_CACHE_SIZE=--wiredTigerCacheSizeGB
 WT_ENGINE_CONFIG_STR=--wiredTigerEngineConfigString
 #set 0 or 1 to build gnuplot
 IS_BUILD_GRAPH=0
-IS_TRACK_LINUX_STAT=1
+IS_TRACK_LINUX_STAT=0
 #IS_BUILD_GRAPH=1
 #build seperate graph index, collection, journal, metadata
-IS_BUILD_GRAPH_IDX=1
+IS_BUILD_GRAPH_IDX=0
 IS_BTT=0
 IS_STANDALONE=1
 IS_DIRECT_IO=1
-#IS_DIRECT_IO=0
-#IS_USE_OPLOG=1
 IS_USE_OPLOG=0
-#TRACK_DEV=nvme0n1
 TRACK_DEV=sda4
 TRACK_TOP_FILE=track_top_${YCSB_REC_COUNT}.txt
 TRACK_IOSTAT_FILE=track_iostat_${YCSB_REC_COUNT}.txt
 
-HOST=115.145.173.215:27017
-#HOST=192.168.1.1:27017
+HOST=115.145.173.195:27017
 #MONGOS_HOST1=vldb10:30000
 #MONGOS_HOST1=192.168.1.24:27017
 MONGOS_HOST1=192.168.1.24:27017,192.168.1.1:27018
@@ -182,7 +113,7 @@ YCSB_MONGODB_ASYNC_RUN=mongodb-async
 #DEVICE: collection, DEVICE2: index, DEVICE3: HDD journal, DEVICE4: remain
 #DEVICE=sdb4
 #DEVICE=nvme0n1
-DEVICE=sda4
+DEVICE=sdd1
 DEVICE2=sdb1
 DEVICE3=sdc1
 DEVICE4=sdd1
