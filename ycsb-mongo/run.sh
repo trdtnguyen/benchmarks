@@ -11,7 +11,9 @@ sudo sysctl vm.drop_caches=3
 sudo sysctl vm.drop_caches=3 
 
 outdir=$1
-cache_size=$2
+last_method=$2
+THREADS=$3
+
 outfile=$BENCHMARK_HOME/${outdir}/run.txt
 
 if [ ! -d $outdir ]
@@ -21,8 +23,7 @@ fi
 
 #start report file
 date="$(date --rfc-3339=seconds)"
-printf "\n$date $METHOD $cache_size " >> ${OVERALL_FILE}
-
+printf "\n$date $last_method $cache_size " >> ${OVERALL_FILE}
 
 
 echo "Run YCSB ..."

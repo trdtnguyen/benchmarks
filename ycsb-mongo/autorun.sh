@@ -1,36 +1,87 @@
 # !/bin/sh
 
-#repeat the benchmark $1 time
-#call this after finishing loading data
-
-#BENCHMARK_HOME=/home/vldb/benchmark/mongodb 
 source const.sh
 
-rm my_mssd_track6.txt
-rm my_mssd_track8.txt
-rm my_mssd_track9.txt
+outdir=ycsb_out
 
-outdir=$1
-cache_size=$2
+#Change those arrays based on your experiment purpose
+#######################################################
+##Config 1: Fix # of threads, various buffer pool and PM buf
+#cache_arr=(128 256 512 1024 2048 3072)
+#thread_arr=(64 64 64 64 64 64)
+#pm_buf_arr=(32 64 128 256 256 256)
+#pm_n_bucket_arr=(32 32 32 64 64 64)
+#pm_bucket_size_arr=(128 256 512 512 512 512)
+#pm_flush_threshold_arr=(1 1 1 5 30 30 30)
 
-if [ $IS_NVME_SSD -eq 1 ]; then
-#reset and open streams
-${BENCHMARK_HOME}/reset_and_open_stream.sh $NUM_OPEN_STREAM 
-sleep 5
+#cache_arr=(256 512 1024 2048 3072 4096)
+#thread_arr=(64 64 64 64 64 64)
+#pm_buf_arr=(64 128 256 256 256 256)
+#pm_n_bucket_arr=(32 32 64 64 64 64)
+#pm_bucket_size_arr=(256 512 512 512 512 512)
+#pm_flush_threshold_arr=(1 1 5 30 30 30) #for LESS, EVEN
+##pm_flush_threshold_arr=(1 1 5 20 5 5) #for SINGLE
+
+####Config 2: Fix buffe pool and PMEM_BUF, various # of threads
+cache_arr=(3072 3072 3072 3072 3072)
+thread_arr=(8 16 32 64 128)
+pm_buf_arr=(256 256 256 256 256)
+pm_n_bucket_arr=(64 64 64 64 64)
+pm_bucket_size_arr=(512 512 512 512 512)
+pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
+##pm_flush_threshold_arr=(5 5 5 5 1) #for SINGLE
+#####################################################
+
+echo "cache_arr[@] = $cache_arr[@]"
+
+for i in {0..4}; do
+	printf "\n==================================================\n"
+	echo "========Loop $i  Buffer pool = ${cache_arr[i]} MB, threads = ${thread_arr[i]} ============" 
+
+# (1) Reset the data
+	$BENCHMARK_HOME/refresh_data.sh		
+
+	echo "sleep $SLEEP_CP seconds after cp..."
+	sleep $SLEEP_CP
+
+# (2) Start the mongod server
+if [ $mode -eq 1 ]; then
+	#Original
+	LAST_METHOD=${METHOD}_${cache_arr[i]}
+	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} &
+elif [ $mode -eq 2 ]; then
+	#PMEM_BUF with EVEN partition
+	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}
+
+	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} ${pm_buf_arr[i]} ${pm_n_bucket_arr[i]} ${pm_bucket_size_arr[i]} ${pm_flush_threshold_arr[i]} &
+elif [ $mode -eq 3 ]; then
+	#PMEM_BUF with SINGLE partition
+	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}
+
+	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} ${pm_buf_arr[i]} ${pm_n_bucket_arr[i]} ${pm_bucket_size_arr[i]} ${pm_flush_threshold_arr[i]} &
+else
+	#PMEM_BUF with LESS partition, or ALL (WAL + LESS)
+	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}
+
+	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} ${pm_buf_arr[i]} ${pm_n_bucket_arr[i]} ${pm_bucket_size_arr[i]} ${pm_flush_threshold_arr[i]} &
 fi
 
-n=1
-if [ -n "$3" ]; then
-	n=$3
-fi	
-echo "=============== Repeat $n time(s)"
-for (( i=1; i<=$n; i++ ))
-do
-	echo "========================== Bench mark $i th runs... ============="
-	${BENCHMARK_HOME}/start_server.sh $cache_size
-	${BENCHMARK_HOME}/run.sh $outdir $cache_size
-	${BENCHMARK_HOME}/stop_server.sh
+	echo "sleep $SLEEP_DB_LOAD seconds before run the benchmark..."
+	sleep $SLEEP_DB_LOAD 
+
+# (3) Run the TPC-C benchmark
+echo "(3) Run the YCSB benchmark method $METHOD"
+		$BENCHMARK_HOME/run.sh $outdir ${LAST_METHOD} ${thread_arr[i]}
+
+# (4) Stop the server
+	#====>> finish benchmark
+	$BENCHMARK_HOME/stop_server.sh
 	sleep 5 
+
+# (5) Collect final result
+	sleep $SLEEP_BETWEEN_BM 
+
+	printf "=========================================================\n"
+	# Next loop
 done
-i=$(($i-1))
-echo "=============================  Finish $i times.====================="
+

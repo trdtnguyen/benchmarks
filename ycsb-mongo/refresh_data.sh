@@ -10,12 +10,12 @@ data_dir=ycsb_mongo_10G_32K
 
 echo "remove old data..."
 #optionary remove data from pmem 
-rm -rf /mnt/pmem1/*
+rm -rf $PMEM_DIR/*
 
-rm -rf $dst_dir
-mkdir -p $dst_dir
+rm -rf $DES_DIR
+mkdir -p $DES_DIR
 
 echo "copy data ..."
-cp -r $src_dir/$data_dir $dst_dir/db
+cp -r $SRC_DIR/$DATA_DIR $DES_DIR/db
 echo "refresh data is done."
 
