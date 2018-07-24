@@ -2,7 +2,7 @@
 #common changed
 #run mode options:
 #ori 1, even_pmembuf 2, single_pmembuf 3, less_pmem_buf 4
-mode=1
+mode=2
 
 if [ $mode -eq 1 ]; then
 METHOD=ori
@@ -39,6 +39,26 @@ IS_NVME_SSD=0
 
 MOUNT_POINT='ssd1' #for trace_disk_util.sh
 
+###########################################
+PMEM_HOME_DIR=/mnt/pmem1
+PMEM_POOL_SIZE=16384
+
+#for UNIV_PMEMOBJ_BUF_XXX family
+PMEM_BUF_SIZE=128
+PMEM_BUF_N_BUCKETS=32
+PMEM_BUF_BUCKET_SIZE=512
+
+#for UNIV_PMEMOBJ_BUF_FLUSHER
+PMEM_N_FLUSH_THREADS=32
+PMEM_FLUSH_THRESHOLD=1
+
+# for UNIV_PMEMOBJ_BUF_PARTITION
+IS_PMEM_PARTITION=1 #set this to 1 for SINGLE, LESS partition
+#PMEM_N_SPACE_BITS=3
+PMEM_N_SPACE_BITS=5
+#PMEM_PAGE_PER_BUCKET_BITS=31 #for SINGLE
+PMEM_PAGE_PER_BUCKET_BITS=10 #for EVEN
+#########################################
 
 ########################################
 YCSB_OP_COUNT=1000000000
@@ -52,9 +72,9 @@ YCSB_MAX_TIME=180
 ########################################
 
 #slep times
-SLEEP_CP=5
-SLEEP_DB_LOAD=5
-SLEEP_BETWEEN_BM=5
+SLEEP_CP=5 #seconds sleep after copy data
+SLEEP_DB_LOAD=10 #seconds sleep between load and run
+SLEEP_BETWEEN_BM=10 #seconds sleep between two benchmarks
 ############################################
 
 IOSTAT_FILE=iostat.txt
