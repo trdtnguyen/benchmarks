@@ -66,6 +66,11 @@ elif [ $mode -eq 4 ]; then
 	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}
 
 	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} ${pm_buf_arr[i]} ${pm_n_bucket_arr[i]} ${pm_bucket_size_arr[i]} ${pm_flush_threshold_arr[i]} &
+elif [ $mode -eq 7 ]; then
+	#PMEM_BUF with EVEN partition
+	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}
+
+	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} ${pm_buf_arr[i]} ${pm_n_bucket_arr[i]} ${pm_bucket_size_arr[i]} ${pm_flush_threshold_arr[i]} &
 elif [ $mode -eq 5 ]; then
 	#PMEM_BUF with SINGLE partition
 	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}

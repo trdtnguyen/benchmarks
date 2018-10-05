@@ -22,21 +22,36 @@ outdir=ycsb_out
 #pm_flush_threshold_arr=(1 1 5 30 30 30) #for LESS, EVEN
 ##pm_flush_threshold_arr=(1 1 5 20 5 5) #for SINGLE
 
-####Config 2: Fix buffe pool and PMEM_BUF, various # of threads
-#cache_arr=(3072 3072 3072 3072 3072)
-cache_arr=(1024 1024 1024 1024 1024)
-thread_arr=(8 16 32 64 128)
-pm_buf_arr=(576 576 576 576 576)
-pm_n_bucket_arr=(256 256 256 256 256)
-pm_bucket_size_arr=(64 64 64 64 64)
-pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
+## This config for non-AIO PMEM_BUF
+#####Config 2: Fix buffe pool and PMEM_BUF, various # of threads
+##cache_arr=(3072 3072 3072 3072 3072)
+#cache_arr=(1024 1024 1024 1024 1024)
+#thread_arr=(8 16 32 64 128)
+#pm_buf_arr=(576 576 576 576 576)
+#pm_n_bucket_arr=(256 256 256 256 256)
+#pm_bucket_size_arr=(64 64 64 64 64)
+#pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
+##pm_flush_threshold_arr=(5 5 5 5 1) #for SINGLE
+
+#This config is for AIO PMEM_BUF
+####Config 3: Fix buffe pool and PMEM_BUF, various # of threads
+#Cache size in GB
+cache_arr=(3 3 3 3 3)
+#cache_arr=(1024 1024 1024 1024 1024)
+#thread_arr=(8 16 32 64 128)
+thread_arr=(128 64 32 16 8)
+pm_buf_arr=(1024 1024 1024 1024 1024)
+pm_n_bucket_arr=(64 64 64 64 64)
+pm_bucket_size_arr=(256 256 256 256 256)
+#pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
+pm_flush_threshold_arr=(1 1 1 1 1) #for LESS, EVEN
 ##pm_flush_threshold_arr=(5 5 5 5 1) #for SINGLE
 #####################################################
 
 echo "cache_arr[@] = $cache_arr[@]"
 
-#for i in {0..4}; do
 for i in {0..4}; do
+#for i in {0..0}; do
 	printf "\n==================================================\n"
 	echo "========Loop $i  Buffer pool = ${cache_arr[i]} MB, threads = ${thread_arr[i]} ============" 
 
@@ -70,7 +85,7 @@ fi
 
 	echo "sleep $SLEEP_DB_LOAD seconds before run the benchmark..."
 	sleep $SLEEP_DB_LOAD 
-
+#exit
 # (3) Run the TPC-C benchmark
 echo "(3) Run the YCSB benchmark method $METHOD"
 		$BENCHMARK_HOME/run.sh $outdir ${LAST_METHOD} ${thread_arr[i]}

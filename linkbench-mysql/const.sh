@@ -16,6 +16,8 @@ elif [ $mode -eq 5 ]; then
 METHOD=single
 elif [ $mode -eq 6 ]; then
 METHOD=LESS
+elif [ $mode -eq 7 ]; then
+METHOD=LSB
 else
 METHOD=ALL
 fi
@@ -133,7 +135,7 @@ RECV_FILE=rec_trace.out
 THREAD_KILLER_SLEEP=$RUNTIME
 ########################################
 
-BENCHMARK_HOME=/home/vldb/benchmark/linkbench
+BENCHMARK_HOME=/home/vldb/benchmarks/linkbench-mysql
 MYSQL_HOME=/usr/local/mysql
 MYSQL_BIN=$MYSQL_HOME/bin
 

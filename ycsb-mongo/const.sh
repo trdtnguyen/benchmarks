@@ -2,7 +2,12 @@
 #common changed
 #run mode options:
 #ori 1, even_pmembuf 2, single_pmembuf 3, less_pmem_buf 4
+#mode=1
 mode=2
+
+#PMEM_BUF_MAX_RANGE=4194304 #2^22
+#PMEM_BUF_MAX_RANGE=33554432 #2^25
+#PMEM_BUF_MAX_RANGE=1073741824 #2^30
 
 if [ $mode -eq 1 ]; then
 METHOD=ori
@@ -18,11 +23,19 @@ fi
 PMEM_DIR=/mnt/pmem1
 SRC_DIR=/mnt/nvme1
 DES_DIR=/mnt/ssd1/data
+DES_MOUNT=/mnt/ssd1
+SRC_DEV=/dev/sdd1
 
 
 #The pair (#doc, name)
 YCSB_REC_COUNT=10000000
 DATA_DIR=ycsb_mongo_10G_32K #name of the source data in SRC_DIR
+
+#YCSB_REC_COUNT=100000000
+#DATA_DIR=ycsb_mongo_100G_32K #name of the source data in SRC_DIR
+
+#YCSB_WORKLOAD=workloada
+YCSB_WORKLOAD=workloada2
 
 #YCSB_REC_COUNT=100000000
 #DATA_DIR=ycsb_mongo_100G_32K #name of the source data in SRC_DIR
@@ -64,16 +77,14 @@ PMEM_PAGE_PER_BUCKET_BITS=10 #for EVEN
 YCSB_OP_COUNT=1000000000
 THREADS=40
 #THREADS=120
-YCSB_WORKLOAD=workloada
-#YCSB_WORKLOAD=workloada2
-YCSB_MAX_TIME=180
-#YCSB_MAX_TIME=600
+#YCSB_MAX_TIME=180
+YCSB_MAX_TIME=900
 #YCSB_MAX_TIME=7200
 ########################################
 
 #slep times
 SLEEP_CP=5 #seconds sleep after copy data
-SLEEP_DB_LOAD=10 #seconds sleep between load and run
+SLEEP_DB_LOAD=30 #seconds sleep between load and run
 SLEEP_BETWEEN_BM=10 #seconds sleep between two benchmarks
 ############################################
 

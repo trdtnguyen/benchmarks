@@ -25,8 +25,12 @@ source const.sh
 
 ####Config 2: Fix buffe pool and PMEM_BUF, various # of threads
 cache_arr=(3072 3072 3072 3072 3072)
-thread_arr=(8 16 32 64 128)
-pm_buf_arr=(256 256 256 256 256)
+#cache_arr=(1024 1024 1024 1024 1024)
+#thread_arr=(8 16 32 64 128)
+thread_arr=(128 64 32 16 8)
+#pm_buf_arr=(256 256 256 256 256)
+pm_buf_arr=(16 16 16 16 16) #for LSB
+#pm_buf_arr=(64 64 64 64 64)
 pm_n_bucket_arr=(64 64 64 64 64)
 pm_bucket_size_arr=(512 512 512 512 512)
 pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
@@ -61,6 +65,11 @@ elif [ $mode -eq 3 ]; then
 	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} &
 elif [ $mode -eq 4 ]; then
 	#PMEM_BUF with EVEN partition
+	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}
+
+	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} ${pm_buf_arr[i]} ${pm_n_bucket_arr[i]} ${pm_bucket_size_arr[i]} ${pm_flush_threshold_arr[i]} &
+elif [ $mode -eq 7 ]; then
+	#LSB
 	LAST_METHOD=${METHOD}_${cache_arr[i]}_${pm_buf_arr[i]}
 
 	$BENCHMARK_HOME/start_server.sh ${cache_arr[i]} ${pm_buf_arr[i]} ${pm_n_bucket_arr[i]} ${pm_bucket_size_arr[i]} ${pm_flush_threshold_arr[i]} &

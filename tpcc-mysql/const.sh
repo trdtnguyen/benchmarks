@@ -2,7 +2,7 @@
 
 #run mode options:
 #ori 1, dbw 2, wal 3, even_pmembuf 4, single_pmembuf 5, less_pmem_buf 6, wal + less 7
-mode=1
+mode=7
 
 if [ $mode -eq 1 ]; then
 METHOD=ori
@@ -16,6 +16,8 @@ elif [ $mode -eq 5 ]; then
 METHOD=single
 elif [ $mode -eq 6 ]; then
 METHOD=LESS
+elif [ $mode -eq 7 ]; then
+METHOD=LSB
 else
 METHOD=ALL
 fi
@@ -38,7 +40,7 @@ IS_SAMSUNG_NVME=0
 #DATA_DIR=tpcc_w100_4k
 #WH=100
 
-#DATA_DIR=tpcc_w300_16k
+##DATA_DIR=tpcc_w300_16k
 #DATA_DIR=tpcc_w300_4k
 #WH=300
 
@@ -96,6 +98,7 @@ SLEEP_DB_LOAD=30 #sleep time between start server finish and run benchmark
 SLEEP_BETWEEN_BM=60 #sleep time between benchmarks
 
 WARMUP_TIME=60
+#WARMUP_TIME=1
 
 #change this value according to the number of warehouse in the dataset 
 CONN=32
@@ -117,7 +120,7 @@ RECV_FILE=rec_trace.out
 THREAD_KILLER_SLEEP=$RUNTIME
 ###################################
 
-BENCHMARK_HOME=/home/vldb/benchmark/tpcc-mysql
+BENCHMARK_HOME=/home/vldb/benchmarks/tpcc-mysql
 MYSQL_HOME=/usr/local/mysql
 MYSQL_BIN=$MYSQL_HOME/bin
 HOST=115.145.173.195

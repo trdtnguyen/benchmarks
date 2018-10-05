@@ -10,7 +10,7 @@ cache=$1
 WT_ENGINE_CONFIG_VAL=""
 printf "===========================\n"
 echo "Mode $mode: $METHOD"
-printf "WiredTiger Buffer size:\t%s MB\n" "$cache"
+printf "WiredTiger Buffer size:\t%s GB\n" "$cache"
 
 if [ $mode -eq 1 ]; then
 #do nothing
@@ -22,27 +22,32 @@ elif [ $mode -eq 2 ]; then
 	PMEM_BUF_N_BUCKETS=$3
 	PMEM_BUF_BUCKET_SIZE=$4
 	PMEM_FLUSH_THRESHOLD=$5
+	#PMEM_BUF_MAX_RANGE is set in const.sh
+	#PMEM_N_FLUSH_THREADS is set in const.sh
 	printf "PMEM buf size:\t\t%s MB\n" "${PMEM_BUF_SIZE}"
 	printf "n_buckets:\t\t%s \n" "${PMEM_BUF_N_BUCKETS}"
 	printf "bucket_size:\t\t%s \n" "${PMEM_BUF_BUCKET_SIZE}"
 	printf "flush_threshold:\t%s \n" "${PMEM_FLUSH_THRESHOLD}"
+	printf "pmem max range:\t%s \n" "${PMEM_BUF_MAX_RANGE}"
 	printf "===========================\n"
-	EXTRA_PARAM="--pmem_home_dir=$PMEM_HOME_DIR --pmem_pool_size=$PMEM_POOL_SIZE --pmem_buf_size=$PMEM_BUF_SIZE --pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --pmem_buf_flush_pct=1 --pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD"
+	EXTRA_PARAM="--pmem_home_dir=$PMEM_HOME_DIR --pmem_pool_size=$PMEM_POOL_SIZE --pmem_buf_size=$PMEM_BUF_SIZE --pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --pmem_buf_flush_pct=1 --pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD --pmem_buf_max_range=$PMEM_BUF_MAX_RANGE"
 elif [ $mode -eq 3 ]; then
 	#SINGLE
 	PMEM_BUF_SIZE=$2
 	PMEM_BUF_N_BUCKETS=$3
 	PMEM_BUF_BUCKET_SIZE=$4
 	PMEM_FLUSH_THRESHOLD=$5
+	#PMEM_BUF_MAX_RANGE is set in const.sh
 	PMEM_PAGE_PER_BUCKET_BITS=31
 	printf "PMEM buf size:\t\t%s MB\n" "${PMEM_BUF_SIZE}"
 	printf "n_buckets:\t\t%s \n" "${PMEM_BUF_N_BUCKETS}"
 	printf "bucket_size:\t\t%s \n" "${PMEM_BUF_BUCKET_SIZE}"
 	printf "flush_threshold:\t%s \n" "${PMEM_FLUSH_THRESHOLD}"
+	printf "pmem max range:\t%s \n" "${PMEM_BUF_MAX_RANGE}"
 	printf "pmem_n_space_bits:\t%s \n" "${PMEM_N_SPACE_BITS}"
 	printf "pmem_page_per_bucket_bits:\t%s \n" "${PMEM_PAGE_PER_BUCKET_BITS}"
 	printf "===========================\n"
-	EXTRA_PARAM="--pmem_home_dir=$PMEM_HOME_DIR --pmem_pool_size=$PMEM_POOL_SIZE --pmem_buf_size=$PMEM_BUF_SZIE --pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --pmem_buf_flush_pct=1 --pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD --pmem_n_space_bits=$PMEM_N_SPACE_BITS --pmem_page_per_bucket_bits=$PMEM_PAGE_PER_BUCKET_BITS"
+	EXTRA_PARAM="--pmem_home_dir=$PMEM_HOME_DIR --pmem_pool_size=$PMEM_POOL_SIZE --pmem_buf_size=$PMEM_BUF_SZIE --pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --pmem_buf_flush_pct=1 --pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD --pmem_buf_max_range=$PMEM_BUF_MAX_RANGE --pmem_n_space_bits=$PMEM_N_SPACE_BITS --pmem_page_per_bucket_bits=$PMEM_PAGE_PER_BUCKET_BITS"
 else
 	#LESS
 	PMEM_BUF_SIZE=$2
@@ -54,10 +59,11 @@ else
 	printf "n_buckets:\t%s \n" "${PMEM_BUF_N_BUCKETS}"
 	printf "bucket_size:\t%s \n" "${PMEM_BUF_BUCKET_SIZE}"
 	printf "flush_threshold:\t%s \n" "${PMEM_FLUSH_THRESHOLD}"
+	printf "pmem max range:\t%s \n" "${PMEM_BUF_MAX_RANGE}"
 	printf "pmem_n_space_bits:\t%s \n" "${PMEM_N_SPACE_BITS}"
 	printf "pmem_page_per_bucket_bits:\t%s \n" "${PMEM_PAGE_PER_BUCKET_BITS}"
 	printf "===========================\n"
-	EXTRA_PARAM="--pmem_home_dir=$PMEM_HOME_DIR --pmem_pool_size=$PMEM_POOL_SIZE --pmem_buf_size=$PMEM_BUF_SZIE --pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --pmem_buf_flush_pct=1 --pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD --pmem_n_space_bits=$PMEM_N_SPACE_BITS --pmem_page_per_bucket_bits=$PMEM_PAGE_PER_BUCKET_BITS"
+	EXTRA_PARAM="--pmem_home_dir=$PMEM_HOME_DIR --pmem_pool_size=$PMEM_POOL_SIZE --pmem_buf_size=$PMEM_BUF_SZIE --pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --pmem_buf_flush_pct=1 --pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD --pmem_buf_max_range=$PMEM_BUF_MAX_RANGE --pmem_n_space_bits=$PMEM_N_SPACE_BITS --pmem_page_per_bucket_bits=$PMEM_PAGE_PER_BUCKET_BITS"
 fi # if [ $mode -eq 1 ];
 
 

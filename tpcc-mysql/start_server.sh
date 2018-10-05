@@ -58,6 +58,20 @@ elif [ $mode -eq 4 ]; then
 	printf "flush_threshold:\t%s \n" "${PMEM_FLUSH_THRESHOLD}"
 	printf "===========================\n"
 	PARAM="$PARAM --innodb_pmem_home_dir=$PMEM_HOME_DIR --innodb_pmem_pool_size=$PMEM_POOL_SIZE --innodb_pmem_buf_size=$PMEM_BUF_SIZE --innodb_pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --innodb_pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --innodb_pmem_buf_flush_pct=1 --innodb_pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --innodb_pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD"
+elif [ $mode -eq 7 ]; then
+	PMEM_BUF_SIZE=$2
+	PMEM_BUF_N_BUCKETS=$3
+	PMEM_BUF_BUCKET_SIZE=$4
+	PMEM_FLUSH_THRESHOLD=$5
+	printf "\n===========================\n"
+	printf "Mode $mode: $METHOD\n"
+	printf "Innodb Buffer size:\t%s MB\n" "${BPSIZE}"
+	printf "PMEM buf size:\t\t%s MB\n" "${PMEM_BUF_SIZE}"
+	printf "n_buckets:\t\t%s \n" "${PMEM_BUF_N_BUCKETS}"
+	printf "bucket_size:\t\t%s \n" "${PMEM_BUF_BUCKET_SIZE}"
+	printf "flush_threshold:\t%s \n" "${PMEM_FLUSH_THRESHOLD}"
+	printf "===========================\n"
+	PARAM="$PARAM --innodb_pmem_home_dir=$PMEM_HOME_DIR --innodb_pmem_pool_size=$PMEM_POOL_SIZE --innodb_pmem_buf_size=$PMEM_BUF_SIZE --innodb_pmem_buf_n_buckets=$PMEM_BUF_N_BUCKETS --innodb_pmem_buf_bucket_size=$PMEM_BUF_BUCKET_SIZE --innodb_pmem_buf_flush_pct=1 --innodb_pmem_n_flush_threads=$PMEM_N_FLUSH_THREADS --innodb_pmem_flush_threshold=$PMEM_FLUSH_THRESHOLD"
 elif [ $mode -eq 5 ]; then
 	PMEM_BUF_SIZE=$2
 	PMEM_BUF_N_BUCKETS=$3
