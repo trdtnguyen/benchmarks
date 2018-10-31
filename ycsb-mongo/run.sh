@@ -7,6 +7,11 @@ then
 	mkdir ${BENCHMARK_HOME}/${WORKLOAD_DIR}
 fi
 
+if [ ! -d ${BENCHMARK_HOME}/${BLK_DIR} ]
+then
+	mkdir ${BENCHMARK_HOME}/${BLK_DIR}
+fi
+
 sudo sysctl vm.drop_caches=3 
 sudo sysctl vm.drop_caches=3 
 
@@ -21,6 +26,21 @@ then
 	mkdir -p $BENCHMARK_HOME/$outdir
 fi
 
+### blktrace #####################
+if [ $IS_BUILD_GRAPH -eq 1 ]
+then
+echo "Run blktrace"
+${BENCHMARK_HOME}/run_blktrace.sh  /dev/${DEVICE} ${BLKTRACE_OUT} &
+${BENCHMARK_HOME}/run_blktrace.sh  /dev/${DEVICE2} ${BLKTRACE_OUT2} &
+if [ -n "${DEVICE3}"  ]; then
+${BENCHMARK_HOME}/run_blktrace.sh  /dev/${DEVICE3} ${BLKTRACE_OUT3} &
+fi
+if [ -n "${DEVICE4}"  ]; then
+${BENCHMARK_HOME}/run_blktrace.sh  /dev/${DEVICE4} ${BLKTRACE_OUT4} &
+fi
+fi
+####################################
+
 #start report file
 date="$(date --rfc-3339=seconds)"
 printf "\n$date $last_method $cache_size " >> ${OVERALL_FILE}
@@ -33,6 +53,9 @@ ${YCSB_HOME}/bin/ycsb run ${YCSB_MONGODB_ASYNC_RUN} -s -P ${YCSB_HOME}/workloads
 echo "YCSB finished. End background processes"
 
 cd $BENCHMARK_HOME
+
+pid=$(ps -opid= -C blktrace)
+sudo kill -15 $pid
 
 echo "Get benchmark result"
 ${MONGO_HOME}/mongo --host=${HOST} --quiet ycsb --eval 'printjson(db.usertable.stats({indexDetails : true}))' > ${outdir}/ycsb_usertable_stats.txt

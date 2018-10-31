@@ -27,7 +27,8 @@ DEV_NAME=850pro
 
 IS_RESET=1
 #workload type: 1: original, 2: write-intensive
-WORKLOAD_TYPE=2
+WORKLOAD_TYPE=1
+#WORKLOAD_TYPE=2
 #IS_RESET=0 #for non-SATA dev
 
 # for reset_debug.sh
