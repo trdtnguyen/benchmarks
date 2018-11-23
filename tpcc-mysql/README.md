@@ -1,14 +1,16 @@
-1. Build binaries
+## 1. Build binaries
    * `cd src ; make`
    ( you should have mysql_config available in $PATH)
 	
 [trdtnguyen added]
 	To add mysql server libraries to the shared library cache:
-   * 'touch /etc/ld.so.conf.d/mysql.conf'
-   * 'echo "/usr/local/mysql/lib" > /etc/ld.so.conf.d/mysql.conf' 
-   * 'ldconfig'
+```
+   touch /etc/ld.so.conf.d/mysql.conf
+   echo "/usr/local/mysql/lib" > /etc/ld.so.conf.d/mysql.conf
+   ldconfig
 
-2. Load data
+
+## 2. Load data
    * create database
      `mysqladmin create tpcc1000`
    * create tables
@@ -24,36 +26,46 @@
        check load.sh script
 
 [trdtnguyen added]
-To help you save time to run './tpcc_load --help', I add that info in here
+To help you save time to run `./tpcc_load --help`, I added that info in here
+```
 tpcc_load -h server_host -P port -d database_name -u mysql_user -p mysql_password -w warehouses -l part -m min_wh -n max_wh
+```
 * [part]: 1=ITEMS 2=WAREHOUSE 3=CUSTOMER 4=ORDERS
 
 
-3. Start benchmark
+## 3. Start benchmark
    * `./tpcc_start -h127.0.0.1 -P3306 -dtpcc1000 -uroot -w1000 -c32 -r10 -l10800`
    * |hostname| |port| |dbname| |user| |WAREHOUSES| |CONNECTIONS| |WARMUP TIME| |BENCHMARK TIME|
    * ref. tpcc_start --help for all options 
 
 [trdtnguyen added]
-To help you save time to run './tpcc_run --help', I add that info in here
-Usage: tpcc_start -h server_host -P port -d database_name -u mysql_user -p mysql_password -w warehouses
- -c connections -r warmup_time -l running_time -i report_interval -f report_file -t trx_file
+To help you save time to run `./tpcc_run --help`, I add that info in here
 
-4. Using script files
+Usage: 
+
+```
+tpcc_start -h server_host -P port -d database_name -u mysql_user -p mysql_password -w warehouses
+ -c connections -r warmup_time -l running_time -i report_interval -f report_file -t trx_file
+```
+
+## 4. Using script files
 	There are some script files from original source code (folked from Percona) that I found useful.
 	I also added other script files for my purpose
 
 	* const.sh: global variables
 
 	* load.sh: wrapper for loading data, call tpcc_load (modifed)
-	'./load.sh'
+
+	`./load.sh`
 
 	* tpcc_load_parallel.sh: load data parallelism (I modified this file to work with my system)
-	'./tpcc_load_parallel.sh'
+
+	`./tpcc_load_parallel.sh`
 
 
 	* kill_tpcc_load.sh: very simple file that kill all processes that have name tpcc_load
-	'./kill_tpcc_load.sh'
+
+	`./kill_tpcc_load.sh`
 
 	* run.sh: wrapper for run the benchmark
 	
