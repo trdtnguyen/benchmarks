@@ -29,8 +29,10 @@ SRC_DEV=/dev/sdd1
 
 #The pair (#doc, name)
 YCSB_REC_COUNT=10000000
-#DATA_DIR=ycsb_mongo_10G_32K #name of the source data in SRC_DIR
-DATA_DIR=ycsb_mongo_10G_32K_nocopress
+DATA_DIR=ycsb_mongo_10G_32K #name of the source data in SRC_DIR
+
+#YCSB_REC_COUNT=20000000
+#DATA_DIR=ycsb_mongo_20G_32K #name of the source data in SRC_DIR
 
 #YCSB_REC_COUNT=100000000
 #DATA_DIR=ycsb_mongo_100G_32K #name of the source data in SRC_DIR
@@ -45,6 +47,7 @@ BENCHMARK_HOME=/home/vldb/benchmarks/ycsb-mongo
 YCSB_HOME=/home/vldb/YCSB
 MONGO_DATA_PATH=/mnt/ssd1/data/db
 MONGO_HOME=/home/vldb/mongo-pmem
+#MONGO_HOME=/home/vldb/mongo-trim
 MONGO_CONFIG_FILE=${BENCHMARK_HOME}/mongod.conf
 
 
@@ -76,9 +79,9 @@ PMEM_PAGE_PER_BUCKET_BITS=10 #for EVEN
 
 ########################################
 YCSB_OP_COUNT=1000000000
-THREADS=40
+THREADS=32
 #THREADS=120
-YCSB_MAX_TIME=180
+YCSB_MAX_TIME=300
 #YCSB_MAX_TIME=900
 #YCSB_MAX_TIME=7200
 ########################################

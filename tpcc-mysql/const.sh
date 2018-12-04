@@ -2,7 +2,7 @@
 
 #run mode options:
 #ori 1, dbw 2, wal 3, even_pmembuf 4, single_pmembuf 5, less_pmem_buf 6, LSB 7
-mode=4
+mode=6
 
 if [ $mode -eq 1 ]; then
 METHOD=ori
@@ -24,8 +24,8 @@ fi
 
 DEV_NAME=850pro
 
-#IS_RESET=1
-IS_RESET=0 #for non-SATA dev
+IS_RESET=1
+#IS_RESET=0 #for non-SATA dev
 
 # for reset_debug.sh
 PMEM_DIR=/mnt/pmem1
@@ -37,16 +37,16 @@ IS_INTEL_NVME=0
 #set 1 for 960 Pro
 IS_SAMSUNG_NVME=0
 
-DATA_DIR=tpcc_w100_4k
-WH=100
+#DATA_DIR=tpcc_w100_4k
+#WH=100
 
 ##DATA_DIR=tpcc_w300_16k
 #DATA_DIR=tpcc_w300_4k
 #WH=300
 
 
-#DATA_DIR=tpcc_w1000_4k
-#WH=1000
+DATA_DIR=tpcc_w1000_4k
+WH=1000
 
 
 METHOD=${METHOD}_${DEV_NAME}_WH${WH}
@@ -106,8 +106,8 @@ CONN=32
 #CONN=100
 
 #RUNTIME=3600 #for long benchmark
-RUNTIME=900 #for average benchmark
-#RUNTIME=800 #for recovery benchmark
+#RUNTIME=900 #for average benchmark
+RUNTIME=300 #for recovery benchmark
 #RUNTIME=100 #for debugging
 
 SSD_SIZE=512 #GB
