@@ -7,7 +7,8 @@
 # This script transfer that last line from overall.txt to summary.txt and only keep data.
 # So user just copy/paste that line to excel file
 
-# ./collect_result_line.sh line
+# ./collect_result_line.sh <n_lines>
+#n_lines: is the number of lines from the tail of overall.txt
 # default: line = 1
 
 source const.sh

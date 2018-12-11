@@ -24,12 +24,13 @@ source const.sh
 ##pm_flush_threshold_arr=(1 1 5 20 5 5) #for SINGLE
 
 ####Config 2: Fix buffe pool and PMEM_BUF, various # of threads
-cache_arr=(3072 3072 3072 3072 3072)
+cache_arr=(4096 4096 4096 4096 4096)
+#cache_arr=(3072 3072 3072 3072 3072)
 #cache_arr=(1024 1024 1024 1024 1024)
 #thread_arr=(8 16 32 64 128)
 thread_arr=(128 64 32 16 8)
-#pm_buf_arr=(256 256 256 256 256)
-pm_buf_arr=(16 16 16 16 16) #for LSB
+pm_buf_arr=(256 256 256 256 256) # for EVEN, SINGLE, LESS
+#pm_buf_arr=(16 16 16 16 16) #for LSB
 #pm_buf_arr=(64 64 64 64 64)
 pm_n_bucket_arr=(64 64 64 64 64)
 pm_bucket_size_arr=(512 512 512 512 512)
@@ -39,8 +40,8 @@ pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
 
 echo "cache_arr[@] = $cache_arr[@]"
 
-#for i in {3..3}; do
-for i in {0..4}; do
+for i in {2..2}; do
+#for i in {0..4}; do
 	printf "\n==================================================\n"
 	echo "========Loop $i  Buffer pool = ${cache_arr[i]} MB, threads = ${thread_arr[i]} ============" 
 

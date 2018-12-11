@@ -3,25 +3,31 @@ import os
 import sys
 import datetime
 
+#set this value False to debug
+is_rm_tem_files=False
+#is_rm_tem_files=True
+
 if (len(sys.argv) != 2):
     print("Wrong syntax\nusage: re.py <input_file>")
     sys.exit(0)
 
 infile=sys.argv[1]
-outfile=infile + ".out"
+outfile="detail_perf.txt"
+all_perf_file='all_perf.txt'
 
 date = datetime.datetime.today().strftime('%Y-%m-%d')
 
 ## Remove files if existed
-os.system("rm tem1")
-os.system("rm tem2")
-os.system("rm tem3")
-os.system("rm tem4")
-os.system("rm tem5")
-os.system("rm tem6")
-os.system("rm tem7")
-os.system("rm tem8")
-os.system("rm tem9")
+if (not is_rm_tem_files):
+    os.system("rm tem1")
+    os.system("rm tem2")
+    os.system("rm tem3")
+    os.system("rm tem4")
+    os.system("rm tem5")
+    os.system("rm tem6")
+    os.system("rm tem7")
+    os.system("rm tem8")
+    os.system("rm tem9")
 
 ## List of patterns with the priority. If a line match with parttern re1 it will not apear in the result of re2
 
@@ -44,7 +50,7 @@ re5=r'mtr|commi|trx'
 re6=r'pfs|file|fil_|AIO|io_|fsp|os_event'
 
 #Query processing
-re7=r'field|item|table|join|tuple|mysql|commnand'
+re7=r'field|item|table|join|tuple|mysql|command'
 
 #Memory
 re8=r'mem|alloc|free|strcmp|qsort|dtoa|strtod'
@@ -170,11 +176,40 @@ with open (infile) as f:
        f.write("\nFile-System: \t\t\t\t" + str(sum6))
        f.write("\nQuery-Processing: \t\t\t" + str(sum7))
        f.write("\nMemory: \t\t\t\t\t" + str(sum8))
-       f.write("\nOther_method1: \t\t\t\t\t\t" + str(other))
-       f.write("\nOther_method2: \t\t\t\t\t\t" + str(sum9))
+       f.write("\nOther_method1: \t\t\t\t" + str(other))
 
        f.write("\n*Note: Other=innodb handler,thread\n")
 
        f.write("\n================================================\n\n")
 
+    #This print for gnuplot stacked bar 
+    is_not_exist=False
+    if (not os.path.isfile(all_perf_file)):
+        is_not_exist=True
+    with open(all_perf_file, 'a') as f:
+        if(is_not_exist):
+            f.write("File Date BM Logging Locking Indexing TP FileSystem QueryProcessing Memory Other\n")
+        f.write(infile + "\t" + date + "\t" + str(sum1)
+                + " " + str(sum2)
+                + " " + str(sum3)
+                + " " + str(sum4)
+                + " " + str(sum5)
+                + " " + str(sum6)
+                + " " + str(sum7)
+                + " " + str(sum8)
+                + " " + str(other)
+                + "\n"
+                )
+
     print("Computing finished. See the result in " + outfile + "\n")
+
+if (is_rm_tem_files):
+    os.system("rm tem1")
+    os.system("rm tem2")
+    os.system("rm tem3")
+    os.system("rm tem4")
+    os.system("rm tem5")
+    os.system("rm tem6")
+    os.system("rm tem7")
+    os.system("rm tem8")
+    os.system("rm tem9")

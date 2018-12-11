@@ -2,7 +2,7 @@
 
 #run mode options:
 #ori 1, dbw 2, wal 3, even_pmembuf 4, single_pmembuf 5, less_pmem_buf 6, LSB 7
-mode=6
+mode=1
 
 if [ $mode -eq 1 ]; then
 METHOD=ori
@@ -24,8 +24,8 @@ fi
 
 DEV_NAME=850pro
 
-IS_RESET=1
-#IS_RESET=0 #for non-SATA dev
+#IS_RESET=1
+IS_RESET=0 #for non-SATA dev
 
 # for reset_debug.sh
 PMEM_DIR=/mnt/pmem1

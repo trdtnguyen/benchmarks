@@ -1,21 +1,37 @@
 #! /bin/bash                                                                                                                                                                           
 
 #common changed
-#METHOD=ORI
-METHOD=OP6_DEBUG_PAGE_TYPE_up_80M_32k_nors
-#METHOD=ORI_up_80M_32k_nors
+#run mode options:
+#ori 1, even_pmembuf 2, single_pmembuf 3, less_pmem_buf 4
+mode=1
 
-BENCHMARK_HOME=/ssd2/benchmark/linkbench
+METHOD=OP6_DEBUG_PAGE_TYPE_up_80M_32k_nors
+
+BENCHMARK_HOME=/home/vldb/benchmarks/linkbench-mongo
+MONGO_DATA_PATH=/mnt/ssd1/data/db
+#MONGO_DATA_PATH=/nvme1/data/db
+MONGO_HOME=/home/vldb/mongo-pmem
+MONGO_CONFIG_FILE=${BENCHMARK_HOME}/mongod.conf
+
 
 #NVME SSD specify variables
 #number of streams should open: ORI: 0;OP6 (boundary): 7,  OP8 (DSM-3): 10; OP11 (DSM-5): 14; OP10 (file-based): 13
+
 #change this value every time use switch the approach 
+#options: 0, 7, 8, 10, 12, 14
 NUM_OPEN_STREAM=0
-#NUM_OPEN_STREAM=7
-#NUM_OPEN_STREAM=8
-#NUM_OPEN_STREAM=10
-#NUM_OPEN_STREAM=12
-#NUM_OPEN_STREAM=14
+
+# for reset_debug.sh
+PMEM_DIR=/mnt/pmem1
+SRC_DIR=/mnt/nvme1
+DES_DIR=/mnt/ssd1/data
+DES_MOUNT=/mnt/ssd1
+SRC_DEV=/dev/sdd1
+
+#maxid1 
+#10M rec ~ 10GB
+LB_NUM_REC=80000001
+
 
 IS_RESET=0
 IS_NVME_SSD=0
@@ -38,15 +54,6 @@ LB_DB_NAME=graph-linkbench
 ########################################
 # Linkbench overwriten cofig key-value
 
-#maxid1 
-#10M rec ~ 10GB
-#LB_NUM_REC=4001
-LB_NUM_REC=80000001
-#LB_NUM_REC=100000001
-#LB_NUM_REC=250000001
-#LB_NUM_REC=400000001
-#LB_NUM_REC=80000001
-#LB_NUM_REC=40000001
 #number threads of loaders
 LB_LOAD_THREADS=20
 LB_RUN_THREADS=40
@@ -97,10 +104,6 @@ IOSTAT_FILE=iostat.txt
 TOP_FILE=top.txt
 LINUX_STAT_FILE=linux_stat.txt
 
-MONGO_DATA_PATH=/ssd1/data/db
-#MONGO_DATA_PATH=/nvme1/data/db
-MONGO_HOME=/home/vldb/mongodb-dev
-MONGO_CONFIG_FILE=${BENCHMARK_HOME}/mongod.conf
 
 
 # --journal or --nojournal

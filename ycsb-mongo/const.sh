@@ -30,6 +30,7 @@ SRC_DEV=/dev/sdd1
 #The pair (#doc, name)
 YCSB_REC_COUNT=10000000
 DATA_DIR=ycsb_mongo_10G_32K #name of the source data in SRC_DIR
+#DATA_DIR=ycsb_mongo_10G_32K_nocopress #name of the source data in SRC_DIR
 
 #YCSB_REC_COUNT=20000000
 #DATA_DIR=ycsb_mongo_20G_32K #name of the source data in SRC_DIR
