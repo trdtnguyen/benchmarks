@@ -115,3 +115,14 @@ Combine two files
 `$ paste output/ori_W1000_BP5_analy.txt output/method1_W1000_BP5_analy.txt > combined_W1000_BP5_analy.txt`
 
 `$ ./tpcc-graph-build.sh combine_W1000_BP5_analy.txt combined_W1000_BP5_graph.jpg`
+
+Tuning with perf
+=================================
+* Start mysqld server
+* Run `start_perf_record.sh` in another terminal
+
+`$ ./start_perf_record.sh perf_outfile.data`
+* Run the benchmark
+* After the benchmark completes, collect the result
+
+`$ ./process_perf_record.sh perf_outfile.data`
