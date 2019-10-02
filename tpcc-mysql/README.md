@@ -55,32 +55,30 @@ $ tpcc_start -h server_host -P port -d database_name -u mysql_user -p mysql_pass
 ```
 
 ## 4. Using script files
-	There are some script files from original source code (folked from Percona) that I found useful.
-	I also added other script files for my purpose
 
-	* const.sh: global variables
+There are some script files from original source code (folked from Percona) that I found useful. I also added other script files for my purpose
 
-	* load.sh: wrapper for loading data, call tpcc_load (modifed)
+* const.sh: global variables
+* load.sh: wrapper for loading data, call tpcc_load (modifed)
 
-	`$ ./load.sh`
+`$ ./load.sh`
+* tpcc_load_parallel.sh: load data parallelism (I modified this file to work with my system)
 
-	* tpcc_load_parallel.sh: load data parallelism (I modified this file to work with my system)
+`$ ./tpcc_load_parallel.sh`
 
-	`$ ./tpcc_load_parallel.sh`
+* kill_tpcc_load.sh: very simple file that kill all processes that have name tpcc_load
 
+`$ ./kill_tpcc_load.sh`
 
-	* kill_tpcc_load.sh: very simple file that kill all processes that have name tpcc_load
-
-	`$ ./kill_tpcc_load.sh`
-
-	* run.sh: wrapper for run the benchmark
+* run.sh: wrapper for run the benchmark
 	
-	`$ run.sh method_name number_of_threads`
+`$ run.sh method_name number_of_threads`
 	
-	* tpcc-graph-build.sh: build the benchmark result, using gnuplot
-	* start_server.sh / stop_server.sh: simple start/stop mysql server
-	
-	`$ ./stop_server.sh`
+* tpcc-graph-build.sh: build the benchmark result, using gnuplot
+
+* start_server.sh / stop_server.sh: simple start/stop mysql server
+
+`$ ./stop_server.sh`
 	
 
 Output
