@@ -12,13 +12,17 @@
 
 ## 2. Load data
    * create database
+   
      `$ mysqladmin create tpcc1000`
    * create tables
+   
      `$ mysql tpcc1000 < create_table.sql`
    * create indexes and FK ( this step can be done after loading data)
+   
      `$ mysql tpcc1000 < add_fkey_idx.sql`
    * populate data
      - simple step
+     
        `$ tpcc_load -h127.0.0.1 -d tpcc1000 -u root -p "" -w 1000`
                  |hostname:port| |dbname| |user| |password| |WAREHOUSES|
        ref. tpcc_load --help for all options
@@ -27,6 +31,7 @@
 
 [trdtnguyen added]
 To help you save time to run `./tpcc_load --help`, I added that info in here
+
 ```
 $ tpcc_load -h server_host -P port -d database_name -u mysql_user -p mysql_password -w warehouses -l part -m min_wh -n max_wh
 ```
@@ -34,6 +39,7 @@ $ tpcc_load -h server_host -P port -d database_name -u mysql_user -p mysql_passw
 
 
 ## 3. Start benchmark
+
    * `$ ./tpcc_start -h127.0.0.1 -P3306 -dtpcc1000 -uroot -w1000 -c32 -r10 -l10800`
    * |hostname| |port| |dbname| |user| |WAREHOUSES| |CONNECTIONS| |WARMUP TIME| |BENCHMARK TIME|
    * ref. tpcc_start --help for all options 
@@ -68,10 +74,12 @@ $ tpcc_start -h server_host -P port -d database_name -u mysql_user -p mysql_pass
 	`$ ./kill_tpcc_load.sh`
 
 	* run.sh: wrapper for run the benchmark
+	
 	`$ run.sh method_name number_of_threads`
 	
 	* tpcc-graph-build.sh: build the benchmark result, using gnuplot
 	* start_server.sh / stop_server.sh: simple start/stop mysql server
+	
 	`$ ./stop_server.sh`
 	
 
@@ -99,11 +107,13 @@ Analysis
 ===================================
 
 `$ ./tpcc-output-analyze.sh output/ori_W1000_BP5.out > output/ori_W1000_BP5_analy.txt`
+
 `$ ./tpcc-output-analyze.sh output/method1_W1000_BP5.out > output/method1_W1000_BP5_analy.txt`
 
 Build gnuplot
 ===================================
-Combine two file
+Combine two files
+
 `$ paste output/ori_W1000_BP5_analy.txt output/method1_W1000_BP5_analy.txt > combined_W1000_BP5_analy.txt`
 
 `$ ./tpcc-graph-build.sh combine_W1000_BP5_analy.txt combined_W1000_BP5_graph.jpg`
