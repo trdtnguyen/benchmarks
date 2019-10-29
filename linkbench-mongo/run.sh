@@ -26,7 +26,9 @@ sudo sysctl vm.drop_caches=3
 sudo sysctl vm.drop_caches=3 
 
 outdir=$1
-cache_size=$2
+last_method=$2
+THREADS=$3
+
 outfile=${outdir}/run.txt
 ops_tem=ops_tem
 nosafile=${outdir}/$NOSA_NAME
@@ -86,11 +88,15 @@ ${NVME_TOOLS}/nvme_read_log ${NVME_DEV} 81 | awk -v FS="[():]" '/nosa/ {printf("
 ${NVME_TOOLS}/nvme_smart ${NVME_DEV} | awk -v FS="[():]" '/data_units_written/ {printf("%s ",$3) }' >> ${OVERALL_FILE}
 printf " ] " >> ${OVERALL_FILE}
 
+####################################
+date="$(date --rfc-3339=seconds)"
+printf "\n$date $last_method $cache_size " >> ${OVERALL_FILE}
 
 
 echo "Run Linkbench ..."
 #choose run normally (sync) or async
-${LINKBENCH_HOME}/bin/linkbench -c  ${LINKBENCH_CONFIG_FILE} -r  -csvstats ${LB_CSVSTATS_RUN_FILE} -csvstream ${LB_CSVSTREAM_RUN_FILE} -D maxid1=${LB_NUM_REC} -D requesters=${LB_RUN_THREADS} -D requests=${LB_NUM_REQUESTS} -D requestrate=${LB_REQUEST_RATE} -D maxtime=${LB_MAX_TIME} -D debuglevel=${LB_DEBUG_LEVEL} 2>&1 | tee ${outfile}
+#${LINKBENCH_HOME}/bin/linkbench -c  ${LINKBENCH_CONFIG_FILE} -r  -csvstats ${LB_CSVSTATS_RUN_FILE} -csvstream ${LB_CSVSTREAM_RUN_FILE} -D maxid1=${LB_NUM_REC} -D requesters=$THREADS -D requests=${LB_NUM_REQUESTS} -D requestrate=${LB_REQUEST_RATE} -D maxtime=${RUNTIME} -D debuglevel=${LB_DEBUG_LEVEL} -D warmup_time=${WARMUP_TIME} 2>&1 | tee ${outfile}
+${LINKBENCH_HOME}/bin/linkbench -c  ${LINKBENCH_CONFIG_FILE} -r  -csvstats ${LB_CSVSTATS_RUN_FILE} -csvstream ${LB_CSVSTREAM_RUN_FILE} -D maxid1=${LB_NUM_REC} -D requesters=$THREADS -D requests=${LB_NUM_REQUESTS} -D requestrate=${LB_REQUEST_RATE} -D maxtime=$RUNTIME -D debuglevel=${LB_DEBUG_LEVEL} 2>&1 | tee ${outfile}
 
 
 echo "Linkbench finished. End background processes"

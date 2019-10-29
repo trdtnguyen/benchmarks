@@ -153,7 +153,8 @@ with open (infile) as f:
         f.write(date + " " + infile)
         for i in range(0, N):
             val = sum_arr[i] * 1.0 / 1000000
-            f.write(" " + str(val))
+            f.write(" " + ("%.3f" % val) )
+            #f.write(" " + str(val))
         f.write("\n")
 
     #Now print the detail result
@@ -187,21 +188,24 @@ with open(outfile_log, 'a') as fout:
 
     # Log file I/O
     val = sum_arr[log_IO_i] * 1.0 / 1000000
-    #fout.write(" " + ("%.2f" % val) )
-    fout.write(" " + str(val))
+    fout.write(" " + ("%.3f" % val) )
+    #fout.write(" " + str(val))
 
     # UNDO log
     val = sum_arr[undo_log_i] * 1.0 / 1000000
-    fout.write(" " + str(val))
+    fout.write(" " + ("%.3f" % val) )
+    #fout.write(" " + str(val))
     
     # REDO log
     for i in range(0, N_LOG):
-        fout.write(" " + str(log_val_arr[i] * 1.0 /1000000))
+        val = log_val_arr[i] * 1.0 /1000000
+        fout.write(" " + ("%.3f" % val) )
+        #fout.write(" " + str(log_val_arr[i] * 1.0 /1000000))
 
     fout.write("\n")
 
 ##### End Log Detal
-print("Computing finished. See result in " + str(outfile_detail) + ", " + str(outfile_overall) + "and " + str(outfile_log))
+print("Computing finished. See result in " + str(outfile_detail) + ", " + str(outfile_overall) + ", and " + str(outfile_log))
 
 if (is_rm_tem_files):
     for f in fnames:

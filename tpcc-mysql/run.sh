@@ -5,12 +5,82 @@ sudo sysctl vm.drop_caches=3
 sleep 2
 sudo sysctl vm.drop_caches=3
 
-
-
 #This query enable all events
 query0="UPDATE performance_schema.setup_consumers SET enabled = 'YES' WHERE name like 'events_waits%';"
 
 #This query enable only important events
+# Note that different MySQL versions name their event name differently.
+
+if [ $MYSQL_VERSION -eq 2 ]; then
+echo "Set Performance Schema for MySQL 8.0"
+
+query1="UPDATE performance_schema.setup_instruments
+	SET ENABLED = 'YES', TIMED = 'YES'
+	WHERE (
+	name like 'wait/synch/mutex/innodb/buf_pool_chunks_mutex' OR
+	name like 'wait/synch/mutex/innodb/buf_pool_flush_state_mutex' OR
+	name like 'wait/synch/mutex/innodb/buf_pool_LRU_list_mutex' OR
+	name like 'wait/synch/mutex/innodb/buf_pool_free_list_mutex' OR
+	name like 'wait/synch/mutex/innodb/buf_pool_zip_free_mutex' OR
+	name like 'wait/synch/mutex/innodb/buf_pool_zip_hash_mutex' OR
+	name like 'wait/synch/mutex/innodb/buf_pool_zip_mutex' OR
+
+	name like 'wait/synch/mutex/innodb/cache_last_read_mutex' OR
+
+	name like 'wait/synch/mutex/innodb/dict_persist_dirty_tables_mutex' OR
+	name like 'wait/synch/mutex/innodb/dict_sys_mutex' OR
+	name like 'wait/synch/mutex/innodb/dict_table_mutex' OR
+
+	name like 'wait/synch/mutex/innodb/fil_system_mutex' OR
+
+	name like 'wait/synch/mutex/innodb/flush_list_mutex' OR
+	name like 'wait/synch/mutex/innodb/hash_table_mutex' OR
+	name like 'wait/synch/mutex/innodb/ibuf_mutex' OR
+	name like 'wait/synch/mutex/innodb/ibuf_bitmap_mutex' OR
+
+	name like 'wait/synch/mutex/innodb/log_checkpointer_mutex' OR
+	name like 'wait/synch/mutex/innodb/log_closer_mutex' OR
+	name like 'wait/synch/mutex/innodb/log_writer_mutex' OR
+	name like 'wait/synch/mutex/innodb/log_flusher_mutex' OR
+	name like 'wait/synch/mutex/innodb/log_write_notifier_mutex' OR
+	name like 'wait/synch/mutex/innodb/log_flush_notifier_mutex' OR
+	name like 'wait/synch/mutex/innodb/log_sys_arch_mutex' OR
+	name like 'wait/synch/mutex/innodb/log_cmdq_mutex' OR
+
+	name like 'wait/synch/mutex/innodb/page_cleaner_mutex' OR
+	
+	name like 'wait/synch/mutex/innodb/recv_sys_mutex' OR
+	name like 'wait/synch/mutex/innodb/recv_writer_mutex' OR
+	name like 'wait/synch/mutex/innodb/temp_space_rseg_mutex' OR
+	name like 'wait/synch/mutex/innodb/undo_space_rseg_mutex' OR
+	name like 'wait/synch/mutex/innodb/trx_sys_rseg_mutex' OR
+
+	name like 'wait/synch/mutex/innodb/trx_mutex' OR
+	name like 'wait/synch/mutex/innodb/trx_undo_mutex' OR
+	name like 'wait/synch/mutex/innodb/trx_sys_mutex' OR
+	
+	name like 'wait/synch/mutex/innodb/buf_dblwr_mutex' OR
+	
+	name like 'wait/synch/mutex/innodb/lock_mutex' OR
+	name like 'wait/synch/mutex/innodb/lock_wait_mutex' OR
+	name like 'wait/synch/mutex/innodb/rw_lock_mutex' OR
+	name like 'wait/synch/mutex/innodb/rw_lock_list_mutex' OR
+	
+	
+	
+	name like 'wait/synch/mutex/innodb/thread_mutex' OR
+	
+	
+	name like 'wait/synch/sxlock/innodb/btr_search_latch' OR
+	name like 'wait/synch/sxlock/innodb/fil_space_latch' OR
+	name like 'wait/synch/sxlock/innodb/checkpoint_mutex' OR
+	
+	name like 'wait/synch/cond/innodb/commit_cond'
+	);
+	"
+else
+	# Default is 1 (MySQL 5.7)
+echo "Set Performance Schema for MySQL 5.7"
 
 query1="UPDATE performance_schema.setup_instruments
 	SET ENABLED = 'YES', TIMED = 'YES'
@@ -55,7 +125,7 @@ query1="UPDATE performance_schema.setup_instruments
 	name like 'wait/synch/cond/innodb/commit_cond'
 	);
 	"
-
+fi
 query2=" SELECT EVENT_NAME, 
 			COUNT_STAR,
 		   	SUM_TIMER_WAIT/1000000 SUM_TIMER_WAIT_US,
@@ -123,8 +193,10 @@ fi
 
 ######### PERFORMANCE SCHEMA ##############
 ##Option 1: Only take the final result
+if [ $IS_ENABLE_PS -eq 1 ]; then
+#this query trace interested PS event
 $MYSQL -u $USER -e "$query1"
-
+fi
 ##Option 2: Call another process to periodically collect the result
 #$BENCHMARK_HOME/performance_schema.sh &
 #####################################
@@ -143,8 +215,9 @@ $TPCC_START -h$HOST -d$DBNAME -u$USER -w$WH -c$CONN -l$RUNTIME -r$WARMUP_TIME -i
 #####################################
 
 ######### PART 0: Mutex waits
-#$MYSQL -u $USER -e "$query2" > $outfile_mutex
-
+if [ $IS_ENABLE_PS -eq 1 ]; then
+$MYSQL -u $USER -e "$query2" > $outfile_mutex
+fi
 
 ######### PART 1: Benchmark info
 echo "======== the benchmark run is finished, start collect results..."
@@ -172,10 +245,12 @@ $MYSQL -u $USER -e "show engine innodb mutex" | grep sum | awk -v FS=" " '{print
 $MYSQL -u $USER -e "show global status like 'innodb_buffer_pool%';" | grep "read_requests" | awk '{printf(" reads_from_buf %s ",$2)}' >> $statfile
 $MYSQL -u $USER -e "show global status like 'innodb_buffer_pool%';" | grep "reads" | awk '{printf("reads_from_dev %s ",$2)}' >> $statfile
 
-### PERFORMANCE_SCHEMA (Optional)
+### PERFORMANCE_SCHEMA (Optional), set IS_ENABLE_PS to 1 in const.sh
 echo "Report date:$date" > $outfile_perf
 # Get information from InnoDB's performance_schema
+if [ $IS_ENABLE_PS -eq 1 ]; then
 $MYSQL -u $USER -e "$query2" >> $outfile_perf
+fi
 # Process the performance schema information and save it into an output file (perf_overall.txt)
 $BENCHMARK_HOME/psi_collector.sh $outfile_perf
 

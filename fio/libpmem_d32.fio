@@ -5,7 +5,9 @@ size=128m
 #size=1g
 runtime=30
 
+#ioengine=mmap
 ioengine=libpmem
+
 norandommap
 time_based=1
 group_reporting
@@ -38,8 +40,8 @@ scramble_buffers=0
 # direct=1:
 #   Using pmem_memcpy_persist() for write operation
 #
-#direct=1
-direct=0
+direct=1
+#direct=0
 
 #
 # Setting for fio process's CPU Node

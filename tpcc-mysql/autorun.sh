@@ -7,7 +7,7 @@ source const.sh
 
 #Change those arrays based on your experiment purpose
 #######################################################
-##Config 1: Fix # of threads, various buffer pool and PM buf
+#Config 1: Fix # of threads, various buffer pool and PM buf
 #cache_arr=(128 256 512 1024 2048 3072)
 #thread_arr=(64 64 64 64 64 64)
 #pm_buf_arr=(32 64 128 256 256 256)
@@ -15,33 +15,33 @@ source const.sh
 #pm_bucket_size_arr=(128 256 512 512 512 512)
 #pm_flush_threshold_arr=(1 1 1 5 30 30 30)
 
-#cache_arr=(256 512 1024 2048 3072 4096)
-#thread_arr=(64 64 64 64 64 64)
-#pm_buf_arr=(64 128 256 256 256 256)
-#pm_n_bucket_arr=(32 32 64 64 64 64)
-#pm_bucket_size_arr=(256 512 512 512 512 512)
-#pm_flush_threshold_arr=(1 1 5 30 30 30) #for LESS, EVEN
+cache_arr=(256 512 1024 2048 3072 4096)
+thread_arr=(64 64 64 64 64 64)
+pm_buf_arr=(64 128 256 256 256 256)
+pm_n_bucket_arr=(32 32 64 64 64 64)
+pm_bucket_size_arr=(256 512 512 512 512 512)
+pm_flush_threshold_arr=(1 1 5 30 30 30) #for LESS, EVEN
 ##pm_flush_threshold_arr=(1 1 5 20 5 5) #for SINGLE
 
-####Config 2: Fix buffe pool and PMEM_BUF, various # of threads
-cache_arr=(4096 4096 4096 4096 4096)
-#cache_arr=(3072 3072 3072 3072 3072)
-#cache_arr=(1024 1024 1024 1024 1024)
-#thread_arr=(8 16 32 64 128)
-thread_arr=(128 64 32 16 8)
-pm_buf_arr=(256 256 256 256 256) # for EVEN, SINGLE, LESS
-#pm_buf_arr=(16 16 16 16 16) #for LSB
-#pm_buf_arr=(64 64 64 64 64)
-pm_n_bucket_arr=(64 64 64 64 64)
-pm_bucket_size_arr=(512 512 512 512 512)
-pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
-##pm_flush_threshold_arr=(5 5 5 5 1) #for SINGLE
+#####Config 2: Fix buffe pool and PMEM_BUF, various # of threads
+#cache_arr=(4096 4096 4096 4096 4096)
+##cache_arr=(3072 3072 3072 3072 3072)
+##cache_arr=(1024 1024 1024 1024 1024)
+##thread_arr=(8 16 32 64 128)
+#thread_arr=(128 64 32 16 8)
+#pm_buf_arr=(256 256 256 256 256) # for EVEN, SINGLE, LESS
+##pm_buf_arr=(16 16 16 16 16) #for LSB
+##pm_buf_arr=(64 64 64 64 64)
+#pm_n_bucket_arr=(64 64 64 64 64)
+#pm_bucket_size_arr=(512 512 512 512 512)
+#pm_flush_threshold_arr=(30 30 30 30 30) #for LESS, EVEN
+###pm_flush_threshold_arr=(5 5 5 5 1) #for SINGLE
 #####################################################
 
 echo "cache_arr[@] = $cache_arr[@]"
 
-for i in {2..2}; do
-#for i in {0..4}; do
+#for i in {0..3}; do
+for i in {0..4}; do
 	printf "\n==================================================\n"
 	echo "========Loop $i  Buffer pool = ${cache_arr[i]} MB, threads = ${thread_arr[i]} ============" 
 

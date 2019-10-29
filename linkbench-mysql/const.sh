@@ -1,8 +1,8 @@
 #!/bin/bash
-
+#Global variables for Linkbench with mysql
 #run mode options:
 #ori 1, dbw 2, wal 3, even 4, single 5, less 6, wal + less 7
-mode=6
+mode=1
 
 if [ $mode -eq 1 ]; then
 METHOD=ori
@@ -24,16 +24,20 @@ fi
 
 #DEV_NAME=NYTRO
 DEV_NAME=850pro
+### enable and trace Performance Schema's events
+#IS_ENABLE_PS=0
+IS_ENABLE_PS=1
 
 IS_RESET=1
 #workload type: 1: original, 2: write-intensive
-WORKLOAD_TYPE=1
+WORKLOAD_TYPE=1 
 #WORKLOAD_TYPE=2
 #IS_RESET=0 #for non-SATA dev
 
 # for reset_debug.sh
 # remember change the datadir in my.cnf
 PMEM_DIR=/mnt/pmem1
+#PMEM_DIR=/mnt/ramdisk
 SRC_DIR=/mnt/nvme1
 DES_DIR=/mnt/ssd1
 #DES_DIR=/mnt/nvme1
@@ -49,17 +53,19 @@ IS_INTEL_NVME=0
 #set 1 for 960 Pro
 IS_SAMSUNG_NVME=0
 
-DATA_DIR=linkbench_100g_4k
-LB_NUM_REC=100000001
-LB_DB_SIZE=100g #this only used for namming
+#DATA_DIR=linkbench_100g_4k
+#LB_NUM_REC=100000001
+#LB_DB_SIZE=100g #this only used for namming
 
 #DATA_DIR=linkbench_30g_4k
 #LB_NUM_REC=30000001
 #LB_DB_SIZE=30g #this only used for namming
 
-#DATA_DIR=linkbench_1g_4k
-#LB_NUM_REC=1000001
-#LB_DB_SIZE=1g #this only used for namming
+#DATA_DIR=linkbench_10g_4k #MySQL 5.7
+DATA_DIR=linkbench_10g_4k_8_0 #MySQL 8.0
+LB_NUM_REC=10000001
+LB_DB_SIZE=10g #this only used for namming
+
 
 ############################# LINKBENCH #######################
 DBNAME=linkdb
@@ -119,21 +125,24 @@ SLEEP_CP=90 #small_data: 60, large_data: 120
 SLEEP_DB_LOAD=30 #sleep time between start server finish and run benchmark
 SLEEP_BETWEEN_BM=60 #sleep time between benchmarks
 
-WARMUP_TIME=60
+#WARMUP_TIME=60
+WARMUP_TIME=1
 
 #change this value according to the number of warehouse in the dataset 
 CONN=32
 #RUNTIME=7200
-RUNTIME=900
-#RUNTIME=100
+#RUNTIME=900
+RUNTIME=300
 SSD_SIZE=512 #GB
 
 ######### Recovery #######################
 RECV_FILE=rec_trace.out
 #sleep time (in seconds)  may diffenrent depend on the data size
 #this used for recovery benchmark
-#THREAD_KILLER_SLEEP=310
-THREAD_KILLER_SLEEP=$RUNTIME
+#THREAD_KILLER_SLEEP=60
+THREAD_KILLER_SLEEP=100
+#THREAD_KILLER_SLEEP=280
+#THREAD_KILLER_SLEEP=$RUNTIME
 ########################################
 
 BENCHMARK_HOME=/home/vldb/benchmarks/linkbench-mysql

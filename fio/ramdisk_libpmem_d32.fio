@@ -1,11 +1,12 @@
 [global]
 bs=4k
 #size=8g
-size=128m
-#size=1g
+#size=128m
+size=64m
 runtime=30
 
-ioengine=libpmem
+ioengine=mmap
+#ioengine=libpmem
 norandommap
 time_based=1
 group_reporting
@@ -19,6 +20,7 @@ invalidate=1
 #iodepth_batch=32
 #thread=32
 numjobs=32
+#numjobs=1
 
 #
 # In case of 'scramble_buffers=1', the source buffer
@@ -38,14 +40,15 @@ scramble_buffers=0
 #   Using pmem_memcpy_persist() for write operation
 #
 direct=0
+#direct=1
 
 #
 # Setting for fio process's CPU Node
 # The parameter is the node number, list of node, or 'all'
 # Use numactl --hardware to show current NUMA nodes in your system
 #
-#numa_cpu_nodes=0
-numa_cpu_nodes=all
+numa_cpu_nodes=0
+#numa_cpu_nodes=all
 
 # NUMA mem policy: 'default', 'prefer', 'bind', 'interleave', or 'local'
 # Examples:
@@ -56,15 +59,15 @@ numa_cpu_nodes=all
 # numa_mem_policy=prefer:0-3
 # numa_mem_policy=prefer:all
 # interleave is similar with prefer
-numa_mem_policy=interleave:all
+#numa_mem_policy=interleave:all
 #numa_mem_policy=interleave:0
-#numa_mem_policy=bind:0
+numa_mem_policy=bind:0
 
 # cpus_allowed_policy: 'shared' (default), 'split'
 # split means that each job will get a unique CPU from the CPU set
 #
-#cpus_allowed_policy=split
-cpus_allowed_policy=shared
+cpus_allowed_policy=split
+#cpus_allowed_policy=shared
 
 #
 # The pmemblk engine does IO to files in a DAX-mounted filesystem.
@@ -91,6 +94,3 @@ stonewall
 [libpmem-seqwrite]
 rw=write
 stonewall
-
-
-

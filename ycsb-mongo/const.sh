@@ -19,6 +19,9 @@ else
 METHOD=LESS
 fi
 
+#IS_RESET=0
+IS_RESET=1
+
 # for reset_debug.sh
 PMEM_DIR=/mnt/pmem1
 SRC_DIR=/mnt/nvme1
@@ -28,9 +31,9 @@ SRC_DEV=/dev/sdd1
 
 
 #The pair (#doc, name)
-YCSB_REC_COUNT=10000000
-DATA_DIR=ycsb_mongo_10G_32K #name of the source data in SRC_DIR
-#DATA_DIR=ycsb_mongo_10G_32K_nocopress #name of the source data in SRC_DIR
+#YCSB_REC_COUNT=10000000
+#DATA_DIR=ycsb_mongo_10G_32K #name of the source data in SRC_DIR
+##DATA_DIR=ycsb_mongo_10G_32K_nocopress #name of the source data in SRC_DIR
 
 #YCSB_REC_COUNT=20000000
 #DATA_DIR=ycsb_mongo_20G_32K #name of the source data in SRC_DIR
@@ -41,8 +44,8 @@ DATA_DIR=ycsb_mongo_10G_32K #name of the source data in SRC_DIR
 #YCSB_WORKLOAD=workloada
 YCSB_WORKLOAD=workloada2
 
-#YCSB_REC_COUNT=100000000
-#DATA_DIR=ycsb_mongo_100G_32K #name of the source data in SRC_DIR
+YCSB_REC_COUNT=100000000
+DATA_DIR=ycsb_mongo_100G_32K #name of the source data in SRC_DIR
 
 BENCHMARK_HOME=/home/vldb/benchmarks/ycsb-mongo
 YCSB_HOME=/home/vldb/YCSB
@@ -52,7 +55,6 @@ MONGO_HOME=/home/vldb/mongo-pmem
 MONGO_CONFIG_FILE=${BENCHMARK_HOME}/mongod.conf
 
 
-IS_RESET=0
 IS_NVME_SSD=0
 
 MOUNT_POINT='ssd1' #for trace_disk_util.sh

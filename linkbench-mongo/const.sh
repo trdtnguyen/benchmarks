@@ -13,6 +13,16 @@ MONGO_DATA_PATH=/mnt/ssd1/data/db
 MONGO_HOME=/home/vldb/mongo-pmem
 MONGO_CONFIG_FILE=${BENCHMARK_HOME}/mongod.conf
 
+LINKBENCH_HOME=/home/vldb/linkbenchX
+#LINKBENCH_HOME=/home/vldb/linkbench
+LINKBENCH_CONFIG_FILE=${LINKBENCH_HOME}/config/LinkConfigMongoDBv2.properties
+#LINKBENCH_CONFIG_FILE=${BENCHMARK_HOME}/LinkConfigMongoDBv2.properties
+LB_DB_NAME=graph-linkbench
+
+IS_RESET=1
+#workload type: 1: original, 2: write-intensive
+#WORKLOAD_TYPE=1
+WORKLOAD_TYPE=2
 
 #NVME SSD specify variables
 #number of streams should open: ORI: 0;OP6 (boundary): 7,  OP8 (DSM-3): 10; OP11 (DSM-5): 14; OP10 (file-based): 13
@@ -30,10 +40,32 @@ SRC_DEV=/dev/sdd1
 
 #maxid1 
 #10M rec ~ 10GB
-LB_NUM_REC=80000001
+#LB_NUM_REC=80000001
+
+DATA_DIR=linkbench_10g_4k
+LB_NUM_REC=10000001
+LB_DB_SIZE=10g #this only used for namming
 
 
-IS_RESET=0
+############################# LINKBENCH #######################
+LB_MAX_TIME=100
+RUNTIME=100
+DBNAME=linkdb
+LB_LINK_TB=linktable
+LB_COUNT_TB=counttable
+LB_NODE_TB=nodetable
+LB_LOAD_THREADS=16
+LB_RUN_THREADS=64
+LB_NUM_REQUESTS=100000000000
+LB_DEBUG_LEVEL=INFO
+LB_REQUEST_RATE=0 #default
+
+LB_CSVSTATS_LOAD_FILE=lb_csvstats_load.txt
+LB_CSVSTREAM_LOAD_FILE=lb_csvstream_load.txt
+LB_CSVSTATS_RUN_FILE=lb_csvstats_run.txt
+LB_CSVSTREAM_RUN_FILE=lb_csvstream_run.txt
+###############################################################
+
 IS_NVME_SSD=0
 
 #IS_NVME_SSD=1
@@ -45,34 +77,13 @@ MOUNT_POINT='ssd1' #for trace_disk_util.sh
 NOSA_NAME=nosa.txt
 STREAM_NAME=stream.txt
 
-#YCSB_HOME=/home/vldb/YCSB
-LINKBENCH_HOME=/home/vldb/linkbenchX
-LINKBENCH_CONFIG_FILE=${LINKBENCH_HOME}/config/LinkConfigMongoDBv2.properties
-#LINKBENCH_CONFIG_FILE=${BENCHMARK_HOME}/LinkConfigMongoDBv2.properties
-LB_DB_NAME=graph-linkbench
 
 ########################################
-# Linkbench overwriten cofig key-value
 
-#number threads of loaders
-LB_LOAD_THREADS=20
-LB_RUN_THREADS=40
-#LB_LOAD_THREADS=40
-#LB_RUN_THREADS=10
-LB_NUM_REQUESTS=100000000000
-#debuglevel=INFO, DEBUG
-LB_DEBUG_LEVEL=INFO
-#>0 limits the average request rate to that number of requests per second per thread,
-#with the inter-request intervals governed by an exponential distribution
-LB_REQUEST_RATE=0 #default
-#LB_REQUEST_RATE=20000
+METHOD=${METHOD}_${DEV_NAME}_${LB_DB_SIZE}
 
-#LB_MAX_TIME=21600
-#LB_MAX_TIME=28800
-#LB_MAX_TIME=14400
-LB_MAX_TIME=7200
-#LB_MAX_TIME=3600
-#LB_MAX_TIME=600
+#WARMUP_TIME=60
+WARMUP_TIME=1
 ############################################
 
 LB_CSVSTATS_LOAD_FILE=lb_csvstats_load.txt
@@ -112,11 +123,11 @@ WT_CACHE_SIZE=--wiredTigerCacheSizeGB
 #MONGO_OPTION_JOURNAL=--nojournal
 WT_ENGINE_CONFIG_STR=--wiredTigerEngineConfigString
 #set 0 or 1 to build gnuplot
-IS_BUILD_GRAPH=1
-IS_TRACK_LINUX_STAT=1
+IS_BUILD_GRAPH=0
+IS_TRACK_LINUX_STAT=0
 #IS_BUILD_GRAPH=1
 #build seperate graph index, collection, journal, metadata
-IS_BUILD_GRAPH_IDX=1
+IS_BUILD_GRAPH_IDX=0
 IS_BTT=0
 IS_STANDALONE=1
 IS_DIRECT_IO=1
@@ -128,7 +139,7 @@ TRACK_DEV=sda4
 TRACK_TOP_FILE=track_top_${YCSB_REC_COUNT}.txt
 TRACK_IOSTAT_FILE=track_iostat_${YCSB_REC_COUNT}.txt
 
-HOST=115.145.173.215:27017
+HOST=115.145.173.195:27017
 #HOST=192.168.1.1:27017
 #MONGOS_HOST1=vldb10:30000
 #MONGOS_HOST1=192.168.1.24:27017

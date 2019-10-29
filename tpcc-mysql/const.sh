@@ -18,17 +18,26 @@ elif [ $mode -eq 6 ]; then
 METHOD=LESS
 elif [ $mode -eq 7 ]; then
 METHOD=LSB
+elif [ $mode -eq 8 ]; then
+METHOD=LESS_NO_PERSIST
 else
 METHOD=ALL
 fi
 
 DEV_NAME=850pro
+### enable and trace Performance Schema's events
+#IS_ENABLE_PS=0
+IS_ENABLE_PS=1
 
-#IS_RESET=1
-IS_RESET=0 #for non-SATA dev
+#MySQL Version: 1 -> 5.7, 2 -> 8.0
+MYSQL_VERSION=1
+
+IS_RESET=1
+#IS_RESET=0 #for non-SATA dev
 
 # for reset_debug.sh
 PMEM_DIR=/mnt/pmem1
+#PMEM_DIR=/mnt/ramdisk #used for simulate latency, just replace this with /mnt/pmem1
 SRC_DIR=/mnt/nvme1
 DES_DIR=/mnt/ssd1
 #DES_DIR=/mnt/nvme1
@@ -37,20 +46,29 @@ IS_INTEL_NVME=0
 #set 1 for 960 Pro
 IS_SAMSUNG_NVME=0
 
-#DATA_DIR=tpcc_w100_4k
-#WH=100
+#DATA_DIR=tpcc_w100_4k #MySQL 5.7
+DATA_DIR=tpcc_w100_4k_8_0 #MySQL 8.0
+DATA_DIR_RECV=tpcc_w100_4k_recv
+WH=100
 
 ##DATA_DIR=tpcc_w300_16k
 #DATA_DIR=tpcc_w300_4k
 #WH=300
 
-
-DATA_DIR=tpcc_w1000_4k
-WH=1000
+#DATA_DIR=tpcc_w1000_4k
+#WH=1000
 
 
 METHOD=${METHOD}_${DEV_NAME}_WH${WH}
 
+
+#this used for recovery benchmark, should less than RUNTIME
+#THREAD_KILLER_SLEEP=30
+#THREAD_KILLER_SLEEP=60
+#THREAD_KILLER_SLEEP=100
+#THREAD_KILLER_SLEEP=200
+THREAD_KILLER_SLEEP=280
+#THREAD_KILLER_SLEEP=$RUNTIME
 ##################################################
 
 #for PMEMBUF settings, the same value is in my.cnf file
@@ -105,19 +123,15 @@ CONN=32
 #CONN=50
 #CONN=100
 
-#RUNTIME=3600 #for long benchmark
 #RUNTIME=900 #for average benchmark
-RUNTIME=300 #for recovery benchmark
-#RUNTIME=100 #for debugging
+RUNTIME=300 #for short benchmark
+#RUNTIME=100 #for recovery benchmark
 
 SSD_SIZE=512 #GB
 
 #######         Recovery
 RECV_FILE=rec_trace.out
 #sleep time (in seconds)  may diffenrent depend on the data size
-#this used for recovery benchmark
-#THREAD_KILLER_SLEEP=310
-THREAD_KILLER_SLEEP=$RUNTIME
 ###################################
 
 BENCHMARK_HOME=/home/vldb/benchmarks/tpcc-mysql

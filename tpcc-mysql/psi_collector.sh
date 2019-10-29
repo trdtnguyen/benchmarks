@@ -51,6 +51,6 @@ cat $infile | grep ibuf_bitmap_mutex | awk '{printf(" %s ",$3)}' >> $outfile
 
 ############
 printf "\n" >> $outfile
-echo "colloect performance schema info done!"
+echo "collect performance schema info done!"
 
 

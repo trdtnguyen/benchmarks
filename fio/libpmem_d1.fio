@@ -1,11 +1,25 @@
 [global]
-bs=4k
+#bs=32k
+#bs=4k
+bs=64
+#bs=8
+
 #size=8g
 size=128m
 #size=1g
 runtime=30
 
+#ioengine=psync
+#ioengine=mmap
 ioengine=libpmem
+
+#If true, fsync() file contents when a write stage has completed. Default: false
+#end_fsync=1
+
+#If writing to a file, issue an fsync() (or its equivalent). Default to 0
+#fsync=1
+#fsync=1000
+
 norandommap
 time_based=1
 group_reporting
@@ -38,8 +52,8 @@ scramble_buffers=0
 # direct=1:
 #   Using pmem_memcpy_persist() for write operation
 #
-#direct=1
-direct=0
+direct=1
+#direct=0
 
 #
 # Setting for fio process's CPU Node
@@ -93,6 +107,3 @@ stonewall
 [libpmem-seqwrite]
 rw=write
 stonewall
-
-
-

@@ -3,13 +3,18 @@ source const.sh
 
 cur_dir=$(pwd)
 
-echo "clear data in $PMEM_DIR and $DES_DIR..."
 
 sudo sysctl vm.drop_caches=3
 sleep $SLEEP_DROP_CACHE 
 sudo sysctl vm.drop_caches=3
 
+#don't reset pmem on recovery test
+if [ $# -eq 0 ]; then
+echo "clear data in $PMEM_DIR"
 sudo rm -rf $PMEM_DIR/*
+fi
+
+echo "clear data in $DES_DIR"
 sudo rm -rf $DES_DIR/data
 
 #echo "copy tar file..."
@@ -32,8 +37,15 @@ if [ $IS_RESET -eq 1 ]; then
 	sudo chown -R vldb:vldb $DES_DIR 
 fi
 
-#cd $cur_dir
+#Set a dummy parameter to copy from recv data (test recovery data)
+if [ $# -eq 0 ]; then
 echo "copy data from $SRC_DIR/$DATA_DIR to $DES_DIR..."
 cp -r $SRC_DIR/$DATA_DIR $DES_DIR/data
+else
+#cd $cur_dir
+echo "copy data from $SRC_DIR/$DATA_DIR_RECV to $DES_DIR..."
+cp -r $SRC_DIR/$DATA_DIR_RECV $DES_DIR/data
+cp $SRC_DIR/pmemobjfile $PMEM_DIR/
+fi
 #rsync -avhW --no-compress --progress $SRC_DIR/$DATA_DIR $DES_DIR/data
 sudo chown -R vldb:vldb $DES_DIR/data 

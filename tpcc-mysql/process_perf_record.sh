@@ -4,7 +4,8 @@ source const.sh
 #Output: The overhead (%) of only user space (Those with [.])
 
 in_file=perf.data
-is_debug=0
+#is_debug=0
+is_debug=1
 
 if [ -n $1 ]; then
 	in_file=$1
@@ -19,9 +20,11 @@ echo "2. Process the result of perf report..."
 
 #Filter out the line with "[.]"
 us_per=$(cat temp1 | grep -w "[[\.]]" | awk '{sum1+=$1} END {printf("%s",sum1)}')
-pmem_per=$(cat temp1 | grep pmem | awk '{sum1+=$1} END {printf("%f",sum1)}')
+pmem_per=$(cat temp1 | grep pm | awk '{sum1+=$1} END {printf("%f",sum1)}')
 echo "total user space overhead $us_per"
+echo "total pmem overhead $pmem_per"
 
+# Only get the overhead from user space and recompute the percentile
 cat temp1 | grep -w "[[\.]]" | awk -v sum_us="$us_per" '{printf("%s %s %s\n",$1/sum_us*100, $2, $3)}' > $out_file
 
 #integrate python

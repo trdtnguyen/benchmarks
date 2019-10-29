@@ -1,4 +1,4 @@
-import re
+import re #regular expression lib in Python
 import os
 import sys
 import datetime
@@ -19,6 +19,7 @@ date = datetime.datetime.today().strftime('%Y-%m-%d')
 
 ## Remove files if existed
 if (not is_rm_tem_files):
+    os.system("rm tem0")
     os.system("rm tem1")
     os.system("rm tem2")
     os.system("rm tem3")
@@ -30,7 +31,10 @@ if (not is_rm_tem_files):
     os.system("rm tem9")
 
 ## List of patterns with the priority. If a line match with parttern re1 it will not apear in the result of re2
+## The syntax is var_name=r'<pattern1|pattern2'
 
+#PMEM
+re0=r'pm_'
 #Buffer pool
 re1=r'buf|block|lru'
 
@@ -60,51 +64,57 @@ re8=r'mem|alloc|free|strcmp|qsort|dtoa|strtod'
 ## Use re.I for case-Intensive search
 with open (infile) as f:
     for line in f:
-        searchObj = re.search(re1, line, re.I | re.M)
+        searchObj = re.search(re0, line, re.I | re.M)
         if searchObj:
-            with open('tem1', 'a') as f1:
-                f1.write(line) 
+            with open('tem0', 'a') as f0:
+                f0.write(line) 
         else:
-            searchObj = re.search(re2, line, re.I | re.M)
+            searchObj = re.search(re1, line, re.I | re.M)
             if searchObj:
-                with open('tem2', 'a') as f2:
-                    f2.write(line) 
+                with open('tem1', 'a') as f1:
+                    f1.write(line) 
             else:
-                searchObj = re.search(re3, line, re.I | re.M)
+                searchObj = re.search(re2, line, re.I | re.M)
                 if searchObj:
-                    with open('tem3', 'a') as f3:
-                        f3.write(line) 
+                    with open('tem2', 'a') as f2:
+                        f2.write(line) 
                 else:
-                    searchObj = re.search(re4, line, re.I | re.M)
+                    searchObj = re.search(re3, line, re.I | re.M)
                     if searchObj:
-                        with open('tem4', 'a') as f4:
-                            f4.write(line) 
+                        with open('tem3', 'a') as f3:
+                            f3.write(line) 
                     else:
-                        searchObj = re.search(re5, line, re.I | re.M)
+                        searchObj = re.search(re4, line, re.I | re.M)
                         if searchObj:
-                            with open('tem5', 'a') as f5:
-                                f5.write(line) 
+                            with open('tem4', 'a') as f4:
+                                f4.write(line) 
                         else:
-                            searchObj = re.search(re6, line, re.I | re.M)
+                            searchObj = re.search(re5, line, re.I | re.M)
                             if searchObj:
-                                with open('tem6', 'a') as f6:
-                                    f6.write(line) 
+                                with open('tem5', 'a') as f5:
+                                    f5.write(line) 
                             else:
-                                searchObj = re.search(re7, line, re.I | re.M)
+                                searchObj = re.search(re6, line, re.I | re.M)
                                 if searchObj:
-                                    with open('tem7', 'a') as f7:
-                                        f7.write(line) 
+                                    with open('tem6', 'a') as f6:
+                                        f6.write(line) 
                                 else:
-                                    searchObj = re.search(re8, line, re.I | re.M)
+                                    searchObj = re.search(re7, line, re.I | re.M)
                                     if searchObj:
-                                        with open('tem8', 'a') as f8:
-                                            f8.write(line) 
+                                        with open('tem7', 'a') as f7:
+                                            f7.write(line) 
                                     else:
-                                        with open('tem9', 'a') as f9:
-                                            f9.write(line) 
+                                        searchObj = re.search(re8, line, re.I | re.M)
+                                        if searchObj:
+                                            with open('tem8', 'a') as f8:
+                                                f8.write(line) 
+                                        else:
+                                            with open('tem9', 'a') as f9:
+                                                f9.write(line) 
     #end for
 
     ##Step 2: Compute sum overhead for each components
+    sum0=0.0
     sum1=0.0
     sum2=0.0
     sum3=0.0
@@ -115,6 +125,10 @@ with open (infile) as f:
     sum8=0.0
     sum9=0.0
 
+    with open('tem0') as f0:
+        for line in f0:
+            strs0=line.split()
+            sum0 +=float(strs0[0])
     with open('tem1') as f1:
         for line in f1:
             strs1=line.split()
@@ -168,6 +182,7 @@ with open (infile) as f:
        f.write("================================================\n")
        f.write("Input file: " + infile + ", computed on " + date + "\n")
 
+       f.write("\nPMEM: \t\t\t" + str(sum0))
        f.write("\nBuffer-Manager: \t\t\t" + str(sum1))
        f.write("\nLog-Manager: \t\t\t\t" + str(sum2))
        f.write("\nLocking: \t\t\t\t\t" + str(sum3))
@@ -189,7 +204,8 @@ with open (infile) as f:
     with open(all_perf_file, 'a') as f:
         if(is_not_exist):
             f.write("File Date BM Logging Locking Indexing TP FileSystem QueryProcessing Memory Other\n")
-        f.write(infile + "\t" + date + "\t" + str(sum1)
+        f.write(infile + "\t" + date + "\t" + str(sum0)
+                + " " + str(sum1)
                 + " " + str(sum2)
                 + " " + str(sum3)
                 + " " + str(sum4)
@@ -204,6 +220,7 @@ with open (infile) as f:
     print("Computing finished. See the result in " + outfile + "\n")
 
 if (is_rm_tem_files):
+    os.system("rm tem0")
     os.system("rm tem1")
     os.system("rm tem2")
     os.system("rm tem3")
